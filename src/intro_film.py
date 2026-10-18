@@ -177,17 +177,17 @@ def render_card(s, t):
         # faint full path
         for i in range(0, 120, 4):
             dr.line([pts[i], pts[i + 1]], fill=(255, 255, 255, 40), width=2)
-        for (x, y), lab, sub in [(A, "얼바인", "SNA"), (B, "퀘벡", "YQB")]:
+        for (x, y), lab, sub in [(A, "로스앤젤레스", "LAX"), (B, "퀘벡", "YQB")]:
             dr.ellipse((x - 9, y - 9, x + 9, y + 9), fill=(255, 255, 255, 255))
             dr.text((x, y + 44), lab, font=F(34, BOLD), fill=(255, 255, 255, 255), anchor="ms")
             dr.text((x, y + 78), sub, font=f_small, fill=(160, 180, 195, 255), anchor="ms")
         px, py = pts[min(n, 120)]
         dr.ellipse((px - 12, py - 12, px + 12, py + 12), fill=(255, 210, 140, 255))
-        dr.text((W/2, 330), "북아메리카 대륙을 가로질러", font=F(26, LIGHT), fill=(150, 175, 195, 255), anchor="ms")
+        dr.text((W/2, 330), "토론토를 거쳐 북아메리카를 가로질러", font=F(26, LIGHT), fill=(150, 175, 195, 255), anchor="ms")
         al, _ = appear(t, t0, t1, 0.5, 0.5)
         base = over(base, lay, al)
         al, dy = appear(t, t0 + 1.2, t1, 0.7, 0.5)
-        base = over(base, text_layer([("밤새 날아 약 4,000km", F(52, XB), (255, 255, 255, 255), (W/2, 640))], "ms"), al, dy)
+        base = over(base, text_layer([("밤새 날아 약 4,200km", F(52, XB), (255, 255, 255, 255), (W/2, 640))], "ms"), al, dy)
         return base
     if kind == "stat":
         base = blurred_bg(s["photo"], t, s)

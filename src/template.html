@@ -470,6 +470,16 @@ footer details.credits[open] summary::before{content:"－ "}
 .say .sp,.say-line .sp,.jr-day .sp{font:inherit;border:1.5px solid var(--sky);background:var(--card);color:var(--sky);border-radius:999px;cursor:pointer;font-size:.8rem;line-height:1;padding:6px 8px}
 .jr-en .say .sp{position:absolute;right:8px;top:10px}
 .jr-day .pron,.say-line .pron{display:block;color:var(--sky);font-weight:600;font-size:.92rem}
+/* long <select> options must never widen the page (iOS sizes a select to its longest option) */
+.ctrls label{grid-template-columns:minmax(0,1fr)}
+.ctrls select,.sheet select{min-width:0;width:100%}
+.fl-desc{font-weight:400;color:var(--muted);font-size:.8rem;line-height:1.45}
+#view{overflow-x:clip}
+@media (max-width:760px){
+  .sheet tr[data-id]{grid-template-columns:30px minmax(0,1fr) minmax(0,auto)}
+  .sheet tr[data-id] td{min-width:0}
+  .sheet .lbl{overflow-wrap:anywhere}
+}
 /* English labels are longer than Korean ones */
 html[lang="en"] .meals div{grid-template-columns:76px minmax(0,1fr)}
 html[lang="en"] .info div{grid-template-columns:96px minmax(0,1fr)}
@@ -549,7 +559,7 @@ function fig(key){ return `<figure class="ph">${img(key)}<figcaption>${PHOTO[key
 const MK = 260, MC = Math.cos(46.5*Math.PI/180);
 const proj = (lat,lon) => [(lon+74.6)*MC*MK, (47.66-lat)*MK];
 const PL = {
-  sna_off:[0,0,"SNA에서","From SNA"], sna_back:[0,0,"SNA로","To SNA"],
+  lax_off:[0,0,"LAX에서","From LAX"], lax_back:[0,0,"LAX로","To LAX"],
   yqb:[46.7911,-71.3933,"퀘벡 공항(YQB)","Quebec airport (YQB)"], oldqc:[46.8123,-71.2070,"구시가지 (숙소)","Old Quebec (hotel)"], palais:[46.8173,-71.2135,"팔레역","Gare du Palais"],
   montmorency:[46.8935,-71.1500,"몽모랑시 폭포","Montmorency Falls"], steanne:[47.0245,-70.9286,"생탄드보프레 대성당","Sainte-Anne-de-Beaupré"], stjean:[46.9155,-70.8960,"오를레앙섬 생장","Saint-Jean, Île d'Orléans"],
   spetronille:[46.8530,-71.1360,"생트페트로니유","Sainte-Pétronille"], stfoy:[46.7636,-71.2952,""], charny:[46.712,-71.262,""], drummond:[45.882,-72.484,""],
@@ -567,14 +577,14 @@ const D = (m,p,team)=>({m,p,team});
 const RAIL = ["palais","stfoy","qbridge","charny","drummond","sthyacinthe","stlambert","victoria","mtlcentral"];
 const MAPS = {
  A:{
-  "11/25":{legs:[D("fly",["sna_off","yqb"])],stops:["yqb"],note:"SNA → 피닉스 → 필라델피아 → 퀘벡, 밤새 비행해 다음 날 10:24 도착",note_en:"SNA → Phoenix → Philadelphia → Quebec, flying overnight to land at 10:24 a.m. the next day"},
-  "11/26":{legs:[D("fly",["sna_off","yqb"]),D("drive",["yqb","oldqc"])],stops:["yqb","oldqc"],note:"공항에서 구시가지까지 택시 20분, 그다음은 모두 걸어서",note_en:"20-minute taxi from the airport to Old Quebec, then everything on foot"},
+  "11/25":{legs:[D("fly",["lax_off","yqb"])],stops:["yqb"],note:"LAX → 토론토 → 퀘벡, 밤새 비행해 다음 날 09:50 도착",note_en:"LAX → Toronto → Quebec, flying overnight to land at 9:50 a.m. the next day"},
+  "11/26":{legs:[D("fly",["lax_off","yqb"]),D("drive",["yqb","oldqc"])],stops:["yqb","oldqc"],note:"공항에서 구시가지까지 택시 20분, 그다음은 모두 걸어서",note_en:"20-minute taxi from the airport to Old Quebec, then everything on foot"},
   "11/27":{legs:[D("drive",["oldqc","r440a","r440b","montmorency","r138a","r138b","steanne","r138b","r138a","bridge_n","bridge_s","stpierre","mitan","stjean","stlaurent","pet_rd","spetronille","bridge_s","bridge_n","r440b","r440a","oldqc"])],stops:["oldqc","montmorency","steanne","stjean","spetronille"],note:"렌터카 하루 · 약 120km, 강 북쪽 해안을 따라 갔다가 다리를 건너 섬으로",note_en:"One-day rental · about 120 km, along the north shore and across the bridge to the island"},
   "11/28":{legs:[D("rail",RAIL),D("drive",["mtlcentral","oldmtl","schwartz","oldmtl"])],stops:["palais","mtlcentral"],note:"VIA 레일 약 260km · 3시간 22분, 강 남쪽 들판을 지나 빅토리아 다리로 몬트리올 섬에",note_en:"VIA Rail, about 260 km · 3 h 22 min, through the fields south of the river and over the Victoria Bridge onto Montreal island"},
-  "11/29":{legs:[D("drive",["oldmtl","viateur","kondiaronk","oldmtl","yul"]),D("fly",["yul","sna_back"])],stops:["oldmtl","viateur","kondiaronk","yul"],note:"택시로 아침 나들이 후 공항까지 25–35분 · 시카고를 거쳐 SNA로",note_en:"Morning outing by taxi, then 25–35 minutes to the airport · home to SNA via Chicago"}
+  "11/29":{legs:[D("drive",["oldmtl","viateur","kondiaronk","oldmtl","yul"]),D("fly",["yul","lax_back"])],stops:["oldmtl","viateur","kondiaronk","yul"],note:"택시로 아침 나들이 후 공항까지 25–35분 · 토론토를 거쳐 LAX로",note_en:"Morning outing by taxi, then 25–35 minutes to the airport · home to LAX via Toronto"}
  }
 };
-const isOff = k => k==="sna_off"||k==="sna_back";
+const isOff = k => k==="lax_off"||k==="lax_back";
 function bboxOf(keys){
   let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
   keys.filter(k=>!isOff(k)).forEach(k=>{const [x,y]=proj(PL[k][0],PL[k][1]); x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y);});
@@ -597,7 +607,7 @@ function scaleBar(vx,vy,vw,vh,fs,K,T){
 }
 function offXY(k, leg, vx, vw){
   const other = leg.p.find(o=>!isOff(o)); const [,y]=proj(PL[other][0],PL[other][1]);
-  return [vx-4, y + (k==="sna_off"? -vw*0.08 : vw*0.06)];
+  return [vx-4, y + (k==="lax_off"? -vw*0.08 : vw*0.06)];
 }
 function legPath(leg, vx, vw){
   const pts = leg.p.map(k=> isOff(k) ? offXY(k,leg,vx,vw) : proj(PL[k][0],PL[k][1]));
@@ -724,7 +734,7 @@ function board(){
 
 /* ---------- logistics per day ---------- */
 const STAY = {"11/25":["기내 (밤 비행기)","On board (night flight)"],"11/26":["퀘벡 구시가지 호텔","Old Quebec hotel"],"11/27":["퀘벡 구시가지 호텔","Old Quebec hotel"],"11/28":["구 몬트리올 호텔","Old Montreal hotel"],"11/29":["얼바인 집","Home in Irvine"]};
-const MOVE = {"11/25":["항공 (피닉스·필라델피아 환승)","Flights (via Phoenix, Philadelphia)"],"11/26":["항공 + 택시 20분 · 도보","Flight + 20-min taxi · walking"],"11/27":["렌터카 하루 · 약 120km","One-day rental · about 120 km"],"11/28":["도보 · VIA 레일 3시간 22분 · 택시","Walking · VIA Rail 3 h 22 min · taxi"],"11/29":["택시 · 항공 (시카고 환승)","Taxi · flights (via Chicago)"]};
+const MOVE = {"11/25":["항공 (토론토 환승)","Flights (via Toronto)"],"11/26":["항공 + 택시 20분 · 도보","Flight + 20-min taxi · walking"],"11/27":["렌터카 하루 · 약 120km","One-day rental · about 120 km"],"11/28":["도보 · VIA 레일 3시간 22분 · 택시","Walking · VIA Rail 3 h 22 min · taxi"],"11/29":["택시 · 항공 (토론토 환승)","Taxi · flights (via Toronto)"]};
 const stay = d => L(...STAY[d]);
 function infoList(team,d){
   const rows = [[L("숙박","Stay"),stay(d)],[L("이동","Getting around"),L(...MOVE[d])]];
@@ -803,7 +813,7 @@ function syncChoiceCost(){
   if(typeof S==="undefined") return;
   DAYS_ko.filter(x=>x.choice).forEach(x=>{ const cur=getChoice(x.choice);
     Object.entries(CHOICE_ITEMS[x.choice.id]).forEach(([k,ids])=>S.items.forEach(i=>{ if(ids.includes(i.id)) i.on = k===cur; })); });
-  try{ localStorage.setItem("jq_cost", JSON.stringify(S)); }catch(e){}
+  try{ localStorage.setItem("jq_cost2", JSON.stringify(S)); }catch(e){}
 }
 /* ---------- French badges (the Junior Ranger slot) ---------- */
 function jrDone(){ try{ return JSON.parse(localStorage.getItem("jq_jr")||"{}"); }catch(e){ return {}; } }
@@ -862,10 +872,10 @@ function dayKid(x,i){
 
 /* ---------- cost model (USD; CAD items converted at fx) ---------- */
 const FLIGHTS = {
-  aa_ac:{label:"가는 편 아메리칸 19:39 (PHX·PHL 경유, 10:24 도착) + 오는 편 에어캐나다·유나이티드 13:10 (ORD 경유, 19:01 도착)",label_en:"Out: American 7:39 p.m. (via PHX·PHL, arr. 10:24 a.m.) + back: Air Canada/United 1:10 p.m. (via ORD, arr. 7:01 p.m.)",out:380,back:934},
-  aa_dl:{label:"가는 편 아메리칸 19:39 + 오는 편 델타 12:44 (ATL 경유, 22:14 도착)",label_en:"Out: American 7:39 p.m. + back: Delta 12:44 p.m. (via ATL, arr. 10:14 p.m.)",out:380,back:497},
-  aab_ac:{label:"가는 편 아메리칸 베이직 (좌석 지정 불가) + 오는 편 에어캐나다·유나이티드 13:10",label_en:"Out: American Basic (no seat choice) + back: Air Canada/United 1:10 p.m.",out:327,back:934},
-  ua_ac:{label:"가는 편 유나이티드 21:10 (EWR 경유, 12:00 도착) + 오는 편 에어캐나다·유나이티드 13:10",label_en:"Out: United 9:10 p.m. (via EWR, arr. 12:00 p.m.) + back: Air Canada/United 1:10 p.m.",out:660,back:934}
+  ac_ac:{short:"에어캐나다 22:55 · 오는 편 13:10 (둘 다 토론토 경유)",short_en:"Air Canada 10:55 p.m. · back 1:10 p.m. (both via Toronto)",label:"가는 편 에어캐나다 22:55 (토론토 경유, 09:50 도착) + 오는 편 에어캐나다 13:10 (토론토 경유, 20:04 도착)",label_en:"Out: Air Canada 10:55 p.m. (via Toronto, arr. 9:50 a.m.) + back: Air Canada 1:10 p.m. (via Toronto, arr. 8:04 p.m.)",out:307,back:926},
+  ac_ac11:{short:"에어캐나다 22:55 · 오는 편 11:10",short_en:"Air Canada 10:55 p.m. · back 11:10 a.m.",label:"가는 편 에어캐나다 22:55 + 오는 편 에어캐나다 11:10 (토론토 경유, 16:39 도착)",label_en:"Out: Air Canada 10:55 p.m. + back: Air Canada 11:10 a.m. (via Toronto, arr. 4:39 p.m.)",out:307,back:804},
+  ac_ac8:{short:"에어캐나다 22:55 · 오는 편 직항 08:00",short_en:"Air Canada 10:55 p.m. · back nonstop 8:00 a.m.",label:"가는 편 에어캐나다 22:55 + 오는 편 에어캐나다 직항 08:00 (11:24 도착, 아침 일정 없음)",label_en:"Out: Air Canada 10:55 p.m. + back: Air Canada nonstop 8:00 a.m. (arr. 11:24 a.m., no morning outing)",out:307,back:613},
+  aa_ac:{short:"아메리칸 22:59 · 오는 편 에어캐나다 13:10",short_en:"American 10:59 p.m. · back Air Canada 1:10 p.m.",label:"가는 편 아메리칸 22:59 (필라델피아 경유, 10:24 도착) + 오는 편 에어캐나다 13:10",label_en:"Out: American 10:59 p.m. (via Philadelphia, arr. 10:24 a.m.) + back: Air Canada 1:10 p.m.",out:262,back:926}
 };
 const flabel = f => L(f.label, f.label_en);
 const HOTELS = {
@@ -883,14 +893,14 @@ const it = (o)=>Object.assign({on:true, cur:"USD", tag:"est"}, o);
 const TX = 1.14975;   // GST 5% + QST 9.975%
 const r2 = n => Math.round(n*100)/100;
 function freshState(){ return {
-  fx:0.72, flight:"aa_ac", style:"std", reserve:5,
+  fx:0.72, flight:"ac_ac", style:"std", reserve:5,
   items:[
     it({id:"c_air",cat:"air",lbl:"항공권 왕복 (1인, 아이도 같은 요금)",lbl_en:"Round-trip airfare (per person, kids pay the same)",kind:"flight",q:4,tag:"ok"}),
-    it({id:"c_bag",cat:"air",lbl:"위탁 수하물 (가방 2개, 가는 편 $50 + 오는 편 약 $35)",lbl_en:"Checked bags (2 bags, $50 out + about $35 back)",u:85,q:2,note:"메인 캐빈 기준, 기내 가방은 무료",note_en:"Main Cabin; carry-ons are free"}),
+    it({id:"c_bag",cat:"air",lbl:"위탁 수하물 (가방 2개, 편도 약 $35 × 왕복)",lbl_en:"Checked bags (2 bags, about $35 each way)",u:70,q:2,note:"에어캐나다 미국–캐나다 노선 첫 가방, 요금 종류에 따라 다름",note_en:"Air Canada U.S.–Canada first bag; varies by fare type"}),
     it({id:"c_qc",cat:"stay",kind:"hotel",h:"qc",q:1,tag:"ok"}),
     it({id:"c_mtl",cat:"stay",kind:"hotel",h:"mtl",q:1,tag:"ok"}),
     it({id:"c_hk",cat:"stay",lbl:"호텔 청소 팁 (1박)",lbl_en:"Housekeeping tip (per night)",u:5,cur:"CAD",q:3}),
-    it({id:"c_uber",cat:"move",lbl:"우버 왕복 (얼바인 집 ↔ SNA)",lbl_en:"Uber, home in Irvine ↔ SNA (each way)",u:30,q:2}),
+    it({id:"c_uber",cat:"move",lbl:"우버 (얼바인 집 ↔ LAX, 편도)",lbl_en:"Uber, home in Irvine ↔ LAX (each way)",u:75,q:2,note:"LAX 5일 주차는 약 $150–200",note_en:"5 days of LAX parking is about $150–200"}),
     it({id:"c_tx1",cat:"move",lbl:"택시 YQB 공항 → 구시가지",lbl_en:"Taxi, YQB airport → Old Quebec",u:45,cur:"CAD",q:1}),
     it({id:"c_car",cat:"move",kind:"car",c:"qc",q:1,tag:"ok"}),
     it({id:"c_gas",cat:"move",lbl:"주유 (약 120km)",lbl_en:"Gas (about 120 km)",u:20,cur:"CAD",q:1}),
@@ -917,7 +927,7 @@ function freshState(){ return {
 const DEF = Object.fromEntries(freshState().items.map(i=>[i.id,i]));
 let S = freshState();
 let BASE = JSON.parse(JSON.stringify(S));
-try{ const saved = JSON.parse(localStorage.getItem("jq_cost")||"null"); if(saved && saved.items){
+try{ const saved = JSON.parse(localStorage.getItem("jq_cost2")||"null"); if(saved && saved.items){
   const fresh = freshState();
   fresh.items.forEach((f,idx)=>{ if(!saved.items.some(i=>i.id===f.id)) saved.items.splice(Math.min(idx,saved.items.length),0,f); });
   saved.items = saved.items.filter(i=>fresh.items.some(f=>f.id===i.id));
@@ -928,7 +938,7 @@ function unit(i, st){
   if(i.kind==="hotel"){ const h=HOTELS[i.h]; const [p]=h.t[i.tier||st.style]; return p*(1+h.tax)*h.n; }
   if(i.kind==="car"){ return CARS[i.c].t[i.tier||st.style][0]; }
   if(i.kind==="meal"){ return MEALS[i.tier||st.style]*i.days; }
-  return i.u;
+  return (DEF[i.id]||i).u;   // unit prices always come from the current definitions
 }
 function cur(i){ return i.cur==="CAD" ? "CAD" : "USD"; }
 function usdOf(i, st){ const u=unit(i,st); return cur(i)==="CAD" ? u*i.q*st.fx : u*i.q; }
@@ -983,7 +993,7 @@ function renderC(){
    <section class="sec panel">
     <div class="ctrls">
      <label>${L("여행 스타일 (숙소·차·식비 일괄)","Trip style (hotels, car, food at once)")}<span class="seg" role="group">${["eco","std","lux"].map(k=>`<button type="button" data-style="${k}" aria-pressed="${S.style===k}">${L(TIER[k][0]+"형",TIER[k][1])}</button>`).join("")}</span></label>
-     <label for="flight" class="flight">${L("항공권 (SNA → 퀘벡 / 몬트리올 → SNA, 1인 왕복)","Flights (SNA → Quebec / Montreal → SNA, per person)")}<select id="flight">${Object.entries(FLIGHTS).map(([k,v])=>`<option value="${k}" ${k===S.flight?"selected":""}>${flabel(v)} · ${U(v.out+v.back)}</option>`).join("")}</select></label>
+     <label for="flight" class="flight">${L("항공권 (LAX → 퀘벡 / 몬트리올 → LAX, 1인 왕복)","Flights (LAX → Quebec / Montreal → LAX, per person)")}<select id="flight">${Object.entries(FLIGHTS).map(([k,v])=>`<option value="${k}" ${k===S.flight?"selected":""}>${L(v.short,v.short_en)} · ${U(v.out+v.back)}</option>`).join("")}</select><small class="fl-desc">${flabel(FLIGHTS[S.flight])}</small></label>
      <label for="fx">${L("환율 (1 CAD = ? USD)","Exchange rate (1 CAD = ? USD)")}<input type="number" id="fx" min="0.5" max="1" step="0.01" value="${S.fx}"></label>
      <label for="reserve">${L("예비비 (%)","Contingency (%)")}<input type="number" id="reserve" min="0" max="30" step="1" value="${S.reserve}"></label>
      <button class="btn" type="button" id="reset">${L("표준안으로 되돌리기","Reset to standard plan")}</button>
@@ -1010,8 +1020,8 @@ function updateC(){
   const bar = (n,Tt,w)=>`<div class="barrow"><b>${n}</b><div class="stack" aria-hidden="true" style="width:${w}%">${Object.keys(CATS).map(c=>`<span title="${catName(c)} ${U(Tt.by[c])}" style="width:${Tt.by[c]/Tt.total*100}%;background:${CATS[c][2]}"></span>`).join("")}</div><span class="num">${U(Tt.total)}</span></div>`;
   const mx = Math.max(T.total,B.total);
   document.getElementById("bars").innerHTML = bar(L("지금 선택","Current"),T,Math.max(8,T.total/mx*100))+bar(L("표준안","Standard"),B,Math.max(8,B.total/mx*100))
-    + `<p class="fine" style="margin:0">${L(`가장 큰 비용: ${topCat(T)} · 항공권이 비싼 이유는 추수감사절 연휴 마지막 일요일 귀국편 때문이에요. 델타 12:44편으로 바꾸면 4명 기준 ${U((934-497)*4)} 줄어듭니다.`,`Biggest cost: ${topCat(T)} · Airfare is high because we fly home on the Sunday after Thanksgiving. Switching to the Delta 12:44 p.m. flight saves ${U((934-497)*4)} for 4.`)}</p>`;
-  try{ localStorage.setItem("jq_cost", JSON.stringify(S)); }catch(e){}
+    + `<p class="fine" style="margin:0">${L(`가장 큰 비용: ${topCat(T)} · 항공권이 비싼 이유는 추수감사절 연휴 마지막 일요일 귀국편 때문이에요. 오는 편을 에어캐나다 11:10편으로 바꾸면 4명 기준 ${U((926-804)*4)} 줄어듭니다.`,`Biggest cost: ${topCat(T)} · Airfare is high because we fly home on the Sunday after Thanksgiving. Switching the return to the Air Canada 11:10 a.m. flight saves ${U((926-804)*4)} for 4.`)}</p>`;
+  try{ localStorage.setItem("jq_cost2", JSON.stringify(S)); }catch(e){}
 }
 function topCat(T){ const [c,v] = Object.entries(T.by).sort((a,b)=>b[1]-a[1])[0]; return `${catName(c)} ${Math.round(v/T.total*100)}%`; }
 function bindC(el){
@@ -1033,8 +1043,8 @@ function bindC(el){
 const CHECK = [
  ["여권 4개 유효기간 확인","캐나다 체류 기간 동안 유효해야 함 · 아이들 여권 포함","Check all 4 passports","Must be valid for the whole stay in Canada · including the kids'"],
  ["eTA 필요 여부 확인 (한국 여권 + 미국 비자 신분이면 필요)","CAD $7 · 공식 사이트 canada.ca에서만 · 미국 영주권자·시민권자는 불필요","Check whether you need an eTA (needed on a Korean passport with U.S. visa status)","CAD $7 · only at canada.ca · not needed for U.S. green-card holders or citizens"],
- ["미국 재입국 서류 챙기기","영주권 카드 또는 비자·I-20 등 · 몬트리올 공항 미국 사전입국심사에서 확인","Bring U.S. re-entry documents","Green card, or visa / I-20 etc. · checked at U.S. preclearance in Montreal"],
- ["항공권 발권 (가족 좌석 함께)","가는 편 아메리칸 19:39 메인 캐빈, 오는 편 에어캐나다·유나이티드 13:10","Book flights (seats together)","Out: American 7:39 p.m. Main Cabin; back: Air Canada/United 1:10 p.m."],
+ ["미국 재입국 서류 챙기기","영주권 카드 또는 비자·I-20 등 · 토론토 공항 미국 사전입국심사에서 확인","Bring U.S. re-entry documents","Green card, or visa / I-20 etc. · checked at U.S. preclearance in Toronto"],
+ ["항공권 발권 (가족 좌석 함께 지정)","가는 편 에어캐나다 22:55 LAX → 토론토 → 퀘벡, 오는 편 에어캐나다 13:10 몬트리올 → 토론토 → LAX","Book flights (choose seats together)","Out: Air Canada 10:55 p.m. LAX → Toronto → Quebec; back: Air Canada 1:10 p.m. Montreal → Toronto → LAX"],
  ["퀘벡 구시가지 호텔 2박 · 구 몬트리올 1박 예약","무료 취소 요금으로 먼저 잡기 · 4인 1실(퀸 2)","Book 2 nights in Old Quebec · 1 night in Old Montreal","Grab free-cancellation rates first · 4 in one room (2 queens)"],
  ["VIA 레일 37번 열차 4장 (11/28 12:32 팔레역)","어른 2 · 13–17세 1 · 12세 이하 1, 이코노미 CAD $54부터","4 tickets on VIA Rail #37 (11/28, 12:32 from Gare du Palais)","2 adults · 1 youth 13–17 · 1 child 12 and under; economy from CAD $54"],
  ["AURA 표 예매 (11/28 18:00 전후)","몇 주 전에 매진되는 편 · 가족권 CAD $104","Book AURA (around 6 p.m. on 11/28)","Often sells out weeks ahead · family ticket CAD $104"],
@@ -1080,27 +1090,42 @@ function renderE(){
 const EN = {hide:false, slow:true};
 try{ Object.assign(EN, JSON.parse(localStorage.getItem("jq_en")||"{}")); }catch(e){}
 const enDone = () => { try{ return JSON.parse(localStorage.getItem("jq_en_done")||"{}"); }catch(e){ return {}; } };
-const canSpeak = "speechSynthesis" in window;
+/* Voices: natural Québécois recordings (Microsoft neural fr-CA Sylvie / Antoine, en-US Jenny / Andrew),
+   pre-rendered to audio/*.mp3 at normal and slow speed. The browser's own voice is only a fallback. */
+const AUDIO = /*__AUDIO__*/{};
+const hasTTS = "speechSynthesis" in window;
+const canSpeak = true;
+let curAudio = null;
+function stopSpeech(){ if(curAudio){ curAudio.onended=curAudio.onerror=null; curAudio.pause(); curAudio=null; } if(hasTTS) speechSynthesis.cancel(); }
 function voicesFor(lang){
-  const all = canSpeak ? speechSynthesis.getVoices() : [];
+  const all = hasTTS ? speechSynthesis.getVoices() : [];
   if(lang==="en"){
     const v = all.filter(x=>/^en[-_]US/i.test(x.lang)), pick = re => v.find(x=>re.test(x.name));
     const a = pick(/Samantha|Google US English|Jenny|Aria/) || v[0], b = pick(/Alex|Daniel|Guy|Fred|Tom/) || v.find(x=>x!==a) || a;
     return {T:a, M:b, lang:"en-US"};
   }
-  // Québec voices first (Amélie, Nicolas, Sylvie...), then any French voice
   const ca = all.filter(x=>/^fr[-_]CA/i.test(x.lang)), fr = all.filter(x=>/^fr/i.test(x.lang));
   const v = ca.length ? ca : fr;
   const a = v.find(x=>/Amélie|Amelie|Sylvie|Chantal|Google français/i.test(x.name)) || v[0];
   const b = v.find(x=>x!==a && /Nicolas|Thomas|Antoine|Jean/i.test(x.name)) || v.find(x=>x!==a) || a;
   return {T:a, M:b, lang: ca.length ? "fr-CA" : "fr-FR"};
 }
-function speak(text, role, onend, lang){
-  if(!canSpeak){ onend&&onend(); return; }
+function ttsSpeak(text, role, onend, lang){
+  if(!hasTTS){ onend&&onend(); return; }
   const u = new SpeechSynthesisUtterance(text), vs = voicesFor(lang);
   u.lang = vs.lang; if(vs[role]) u.voice = vs[role]; u.rate = EN.slow ? 0.78 : 0.95;
   u.onend = u.onerror = () => onend&&onend();
   speechSynthesis.speak(u);
+}
+function speak(text, role, onend, lang="fr"){
+  const id = AUDIO[`${lang}|${role}|${text}`] || AUDIO[`${lang}|T|${text}`] || AUDIO[`${lang}|M|${text}`];
+  if(!id){ ttsSpeak(text, role, onend, lang); return; }
+  if(curAudio){ curAudio.onended=curAudio.onerror=null; curAudio.pause(); }
+  const a = new Audio(`audio/${id}${EN.slow?"_s":""}.mp3`); curAudio = a;
+  let done=false; const fin=()=>{ if(done) return; done=true; if(curAudio===a) curAudio=null; onend&&onend(); };
+  a.onended = fin;
+  a.onerror = ()=>{ if(done) return; done=true; ttsSpeak(text, role, onend, lang); };
+  a.play().catch(()=>{ if(!done){ done=true; ttsSpeak(text, role, onend, lang); } });
 }
 function renderF(){
   const done = enDone(), n = SCENES.filter(s=>done[s.id]).length;
@@ -1112,7 +1137,7 @@ function renderF(){
    <div class="en-tools" style="margin-bottom:12px">
      <button type="button" data-en="hide" aria-pressed="${EN.hide}">${L("내 대사 가리기","Hide my lines")}</button>
      <button type="button" data-en="slow" aria-pressed="${EN.slow}">${L("천천히 듣기","Slow audio")}</button>
-     ${canSpeak?"":`<span class="fine">${L("이 브라우저는 소리 듣기를 지원하지 않아요. 휴대폰 사파리나 크롬에서 열어 주세요.","This browser can't play speech. Open the page in Safari or Chrome on your phone.")}</span>`}
+     <span class="fine">${L("목소리: 퀘벡 프랑스어 AI 음성(상대 Sylvie · 나 Antoine), 미국 심사 장면은 미국 영어","Voices: Québécois French AI voices (them: Sylvie · me: Antoine); U.S. English for the customs scene")}</span>
    </div>
    <div class="scenes ${EN.hide?"hide-me":""}">${SCENES.map((s,si)=>{ const t=s[LANG]; return `<details class="scene ${done[s.id]?"done":""}" data-scene="${s.id}" ${si===0?"open":""}>
      <summary><h3>${si+1}. ${t.t}</h3><small>${t.where} · ${L("상대","with")}: ${t.them}</small><span class="st">${done[s.id]?L("연습 완료","Practiced"):L("연습 전","Not yet")}</span></summary>
@@ -1134,12 +1159,12 @@ function bindF(el){
   }));
   el.querySelectorAll(".line.M .bubble").forEach(b=>b.addEventListener("click",()=>b.parentElement.classList.toggle("peek")));
   el.querySelectorAll("[data-say]").forEach(b=>b.addEventListener("click",e=>{
-    e.stopPropagation(); enRun++; speechSynthesis.cancel();
+    e.stopPropagation(); enRun++; stopSpeech();
     const [id,li]=b.dataset.say.split(":"); const s=SCENES.find(x=>x.id===id), line=s.lines[+li];
     const row=b.closest(".line"); row.classList.add("playing"); speak(line[1], line[0], ()=>row.classList.remove("playing"), s.lang);
   }));
   el.querySelectorAll("[data-play]").forEach(b=>b.addEventListener("click",()=>{
-    const run=++enRun; speechSynthesis.cancel();
+    const run=++enRun; stopSpeech();
     const s=SCENES.find(x=>x.id===b.dataset.play), turn=!!b.dataset.turn, box=b.closest(".scene-body");
     const rows=[...box.querySelectorAll(".line")];
     const step=i=>{
@@ -1157,7 +1182,7 @@ function bindF(el){
     const sc=c.closest(".scene"); sc.classList.toggle("done",c.checked); sc.querySelector(".st").textContent=c.checked?L("연습 완료","Practiced"):L("연습 전","Not yet");
     const n=SCENES.filter(s=>d[s.id]).length; el.querySelector(".sec-h p").textContent=L(`${n} / ${SCENES.length} 장면 연습 완료`,`${n} / ${SCENES.length} scenes practiced`);
   }));
-  if(canSpeak) speechSynthesis.getVoices();
+  if(hasTTS) speechSynthesis.getVoices();
 }
 
 /* ---------- intro film: kids tab gets its own film, English mode its own versions ---------- */
@@ -1179,11 +1204,11 @@ function curView(){ const t=document.querySelector('.tab[aria-selected="true"]')
 function show(v){
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected", String(b.dataset.view===v)));
   const el = document.getElementById("view");
-  if(window.speechSynthesis) speechSynthesis.cancel(); enRun++;
+  stopSpeech(); enRun++;
   setFilm(v==="B" ? "kids" : "adult");
   el.innerHTML = v==="A"?renderA():v==="B"?renderB():v==="C"?renderC():v==="E"?renderE():v==="F"?renderF():renderD();
   el.querySelectorAll("tr[data-go]").forEach(tr=>tr.addEventListener("click",()=>document.getElementById(tr.dataset.go)?.scrollIntoView({behavior:"smooth"})));
-  el.querySelectorAll("[data-speak]").forEach(b=>b.addEventListener("click",e=>{ e.preventDefault(); e.stopPropagation(); enRun++; speechSynthesis.cancel(); speak(b.dataset.speak,"T",null,b.dataset.sl); }));
+  el.querySelectorAll("[data-speak]").forEach(b=>b.addEventListener("click",e=>{ e.preventDefault(); e.stopPropagation(); enRun++; stopSpeech(); speak(b.dataset.speak,"T",null,b.dataset.sl); }));
   if(v==="A"||v==="B"){
     el.querySelectorAll("[data-choice]").forEach(b=>b.addEventListener("click",()=>{
       const c = DAYS.find(x=>x.choice&&x.choice.id===b.dataset.choice).choice;

@@ -10,6 +10,7 @@ credits = json.load(open(os.path.join(root, "credits.json"), encoding="utf-8"))
 html = html.replace("/*__CREDITS__*/", json.dumps(credits, ensure_ascii=False))
 html = html.replace("/*__GEO__*/", read("geo.js"))
 html = html.replace("/*__DATA__*/", "\n".join(read(f) for f in ["days.js", "days_en.js", "meals.js", "tips.js", "tips_en.js", "french.js"]))
+html = html.replace("/*__AUDIO__*/{}", read("audio_index.json").strip())
 faces = []
 for name, w in [("Regular",400),("SemiBold",600),("Bold",700),("ExtraBold",800)]:
     data = base64.b64encode(open(os.path.join(here, f"Pretendard-{name}.subset.woff2"),"rb").read()).decode()

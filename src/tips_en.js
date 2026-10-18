@@ -23,9 +23,9 @@ const TIPS_en = [
   ["Winter tires are law from December 1","Quebec requires winter tires Dec 1 – Mar 15. Our trip is just before, but snow is possible, so ask at the rental counter."],
   ["Airport taxis are flat-rate","Montreal airport ↔ downtown is a flat CAD $49.45 by day. Quebec airport ↔ Old Quebec is metered, about CAD $40–50."]]],
  ["Entering · Leaving","Going into Canada, coming back to the U.S.",[
-  ["Passports for everyone","Even flying from the U.S., Canada is a foreign country. The kids need passports too; with both parents traveling, nothing else is needed.",1],
+  ["Passports for everyone; immigration is in Toronto","Even flying from the U.S., Canada is a foreign country, and immigration happens at your first stop, Toronto. The kids need passports too; with both parents traveling, nothing else is needed.",1],
   ["Check whether you need an eTA","Flying into Canada on a Korean passport requires an eTA (CAD $7). U.S. green-card holders show their passport and green card instead; U.S. citizens need nothing. Apply only at canada.ca.",1],
-  ["U.S. immigration happens in Montreal","Montreal airport has U.S. Customs and Border Protection preclearance. After checking bags you clear U.S. entry there, and land at SNA like a domestic flight. Bring your green card or visa papers.",1],
+  ["U.S. immigration happens in Toronto","Toronto airport has U.S. Customs and Border Protection preclearance, so you clear U.S. entry during the connection and land at LAX like a domestic flight. Bring your green card or visa papers.",1],
   ["What you can't bring back","No jerky, sausages or other meat products bought in Canada, and no fresh fruit. Maple syrup, chocolate, bagels and hard cheese are fine. Just declare honestly."]]],
  ["Food","Must-tries in Quebec",[
   ["Poutine (Quebecers say 'poo-TSEEN')","Fries topped with squeaky cheese curds (fromage en grains, froh-MAHZH ahn GRAN) and hot gravy. Born in rural Quebec diners in the 1950s; if the cheese squeaks, it's fresh."],

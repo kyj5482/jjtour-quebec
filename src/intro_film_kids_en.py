@@ -151,7 +151,7 @@ def render_card(s, t):
         return base
     if kind == "flight":
         base = BG_SKY.copy(); d = ImageDraw.Draw(base)
-        P = [(150, 470, "Irvine"), (720, 400, "Philadelphia"), (1110, 300, "Quebec")]
+        P = [(150, 470, "Los Angeles"), (760, 380, "Toronto"), (1110, 300, "Quebec")]
         def arc(a, b, h, u):
             return a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u - h * 4 * u * (1 - u)
         p = ease((t - t0 - 0.3) / 4.0)

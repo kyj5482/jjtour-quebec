@@ -177,17 +177,17 @@ def render_card(s, t):
         # faint full path
         for i in range(0, 120, 4):
             dr.line([pts[i], pts[i + 1]], fill=(255, 255, 255, 40), width=2)
-        for (x, y), lab, sub in [(A, "Irvine", "SNA"), (B, "Quebec", "YQB")]:
+        for (x, y), lab, sub in [(A, "Los Angeles", "LAX"), (B, "Quebec", "YQB")]:
             dr.ellipse((x - 9, y - 9, x + 9, y + 9), fill=(255, 255, 255, 255))
             dr.text((x, y + 44), lab, font=F(34, BOLD), fill=(255, 255, 255, 255), anchor="ms")
             dr.text((x, y + 78), sub, font=f_small, fill=(160, 180, 195, 255), anchor="ms")
         px, py = pts[min(n, 120)]
         dr.ellipse((px - 12, py - 12, px + 12, py + 12), fill=(255, 210, 140, 255))
-        dr.text((W/2, 330), "across North America", font=F(26, LIGHT), fill=(150, 175, 195, 255), anchor="ms")
+        dr.text((W/2, 330), "across North America, via Toronto", font=F(26, LIGHT), fill=(150, 175, 195, 255), anchor="ms")
         al, _ = appear(t, t0, t1, 0.5, 0.5)
         base = over(base, lay, al)
         al, dy = appear(t, t0 + 1.2, t1, 0.7, 0.5)
-        base = over(base, text_layer([("Overnight, about 4,000 km", F(52, XB), (255, 255, 255, 255), (W/2, 640))], "ms"), al, dy)
+        base = over(base, text_layer([("Overnight, about 4,200 km", F(52, XB), (255, 255, 255, 255), (W/2, 640))], "ms"), al, dy)
         return base
     if kind == "stat":
         base = blurred_bg(s["photo"], t, s)

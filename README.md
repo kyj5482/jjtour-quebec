@@ -2,10 +2,10 @@
 
 우리 가족 4명이 추수감사절 연휴(2026년 11월 25일 – 29일)에 다녀오는 퀘벡시티 2박 · 몬트리올 1박 일정표입니다. UI/UX는 `../jjtour`(2027 미국 서부 가족여행)와 같습니다.
 
-- 11/25 수 저녁 SNA 출발(밤 비행기) → 11/26 목 아침 퀘벡 도착 → 11/27 금 몽모랑시 폭포 · 오를레앙섬 · 시타델 → 11/28 토 12:32 VIA 레일로 몬트리올, AURA → 11/29 일 13:10 몬트리올 출발, SNA 도착
+- 11/25 수 22:55 LAX 출발(에어캐나다, 토론토 경유 밤 비행기) → 11/26 목 09:50 퀘벡 도착 → 11/27 금 몽모랑시 폭포 · 오를레앙섬 · 시타델 → 11/28 토 12:32 VIA 레일로 몬트리올, AURA → 11/29 일 13:10 몬트리올 출발, 토론토 경유 20:04 LAX 도착
 - 탭: 가족 일정, Jia · Jaei 모험(아이용 미션 · 프랑스어 배지), 여행 경비 시뮬레이션(USD, CAD 환율), 준비물 · 연락처, 현지인 꿀팁, 여행 프랑스어 롤플레이(fr-CA 음성)
 - 오른쪽 위 **한국어 / English** 버튼으로 페이지 전체(일정·지도·경비·준비물·꿀팁·롤플레이·인트로 영상)를 바꿉니다. `?lang=en`으로 영어 화면을 바로 열 수 있고, 고른 언어는 기기에 기억됩니다.
-- 프랑스어 문장마다 발음을 달았습니다: 한국어 화면은 한글 발음, 영어 화면은 영어식 발음(bohn-ZHOOR). ▶ 버튼은 브라우저의 퀘벡 프랑스어(fr-CA) 음성으로 읽어 줍니다.
+- 프랑스어 문장마다 발음을 달았습니다: 한국어 화면은 한글 발음, 영어 화면은 영어식 발음(bohn-ZHOOR). ▶ 버튼은 미리 녹음한 퀘벡 프랑스어 신경망 음성(Microsoft fr-CA Sylvie·Antoine, `audio/`, 보통·느린 속도)을 틀고, 파일이 없을 때만 브라우저 음성을 씁니다.
 - 페이지: https://kyj5482.github.io/jjtour-quebec/ (`index.html`, GitHub Pages)
 
 ## 다시 빌드하기
@@ -23,9 +23,11 @@ python3 src/intro_music_kids.py music_kids.wav 62 && python3 src/intro_film_kids
 python3 src/intro_film_en.py img intro_en.mp4 music.wav && python3 src/intro_film_kids_en.py img intro_kids_en.mp4 music_kids.wav src/Jua-Regular.ttf
 ```
 
+프랑스어 음성은 `src/audio_index.json`(문장 → 파일)과 `audio/*.mp3`입니다. 문장을 바꾸면 `src/make_audio.py`(edge-tts)로 다시 만듭니다 (`fr-CA-SylvieNeural` 상대, `fr-CA-AntoineNeural` 나, 느린 속도 −25%).
+
 ## 자료 출처 (2026-10-18 확인)
 
-- 항공: Google 항공권 (아메리칸 19:39 SNA → PHX → PHL → YQB 10:24, 에어캐나다·유나이티드 13:10 YUL → ORD → SNA 19:01)
+- 항공: Google 항공권 (에어캐나다 22:55 LAX → YYZ → YQB 09:50 $307, 에어캐나다 13:10 YUL → YYZ → LAX 20:04 $926)
 - 기차: VIA 레일 예약 화면 (11/28 37번 열차 퀘벡 12:32 → 몬트리올 15:54, 이코노미 CAD $54부터)
 - 호텔: Booking.com (해당 날짜, 4인 1실) · 렌터카: KAYAK
 - 입장료·운영 시간: 시타델, 몽모랑시 폭포(Sépaq), 노트르담 대성당(AURA), 문명 박물관 공식 페이지 · 크리스마스 마켓: 퀘벡시 관광청

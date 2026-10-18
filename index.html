@@ -473,6 +473,16 @@ footer details.credits[open] summary::before{content:"－ "}
 .say .sp,.say-line .sp,.jr-day .sp{font:inherit;border:1.5px solid var(--sky);background:var(--card);color:var(--sky);border-radius:999px;cursor:pointer;font-size:.8rem;line-height:1;padding:6px 8px}
 .jr-en .say .sp{position:absolute;right:8px;top:10px}
 .jr-day .pron,.say-line .pron{display:block;color:var(--sky);font-weight:600;font-size:.92rem}
+/* long <select> options must never widen the page (iOS sizes a select to its longest option) */
+.ctrls label{grid-template-columns:minmax(0,1fr)}
+.ctrls select,.sheet select{min-width:0;width:100%}
+.fl-desc{font-weight:400;color:var(--muted);font-size:.8rem;line-height:1.45}
+#view{overflow-x:clip}
+@media (max-width:760px){
+  .sheet tr[data-id]{grid-template-columns:30px minmax(0,1fr) minmax(0,auto)}
+  .sheet tr[data-id] td{min-width:0}
+  .sheet .lbl{overflow-wrap:anywhere}
+}
 /* English labels are longer than Korean ones */
 html[lang="en"] .meals div{grid-template-columns:76px minmax(0,1fr)}
 html[lang="en"] .info div{grid-template-columns:96px minmax(0,1fr)}
@@ -512,21 +522,20 @@ const GEO = {"water": "M-81.73,-241.55L-79.28,-242.01L-77.20,-243.31L-76.31,-244
 
 /* 하루 = 어른용 상세(lead·tl·book·tips·hist·links) + 아이용(kid: 제목·알쓸신잡·미션), drive = 차·기차 타는 시간(시간) */
 const DAYS_ko = [
- {d:"11/25",w:"수",n:"DAY 1",t:"추수감사절 연휴 시작, 밤 비행기로 북쪽으로",where:"얼바인 → 존웨인 공항(SNA) → 피닉스 → 필라델피아",ph:["frontenac_ice"],drive:6,
-  lead:"학교와 회사가 끝나는 수요일 저녁, 존웨인 공항에서 출발합니다. 피닉스에서 밤 비행기로 갈아타 기내에서 자고, 필라델피아를 거쳐 다음 날 아침 퀘벡에 내립니다.",
-  tl:[["16:30","가방 최종 점검 · 패딩·장갑은 기내 가방 맨 위에"],["17:00","집에서 이른 저녁, 출발"],["17:30","SNA 도착 · 짐 부치기, 보안 검색 (추수감사절 전날이라 2시간 전)"],["19:39","아메리칸항공 SNA 출발 → 피닉스(PHX)"],["밤","피닉스에서 필라델피아(PHL)행 밤 비행기로 갈아타기 · 기내에서 잠"]],
-  book:["아메리칸항공 19:39 SNA → PHX → PHL → YQB 10:24 도착, 메인 캐빈 1인 $380 (베이직 $327은 좌석 지정 불가) · 2026-10-18 Google 항공권 조회","존웨인 공항은 소음 규정 때문에 밤 10시 이후 출발이 없어 ‘진짜 자정 출발’ 비행기는 없습니다. 19:39 출발 + 동부 환승이 아침 도착을 만드는 가장 현실적인 조합입니다.","대안: 유나이티드 21:10 SNA → 뉴어크(EWR) → YQB 12:00, 1인 $660 (환승 1회, 대기 4시간 48분)"],
-  tips:["추수감사절 전날 수요일은 미국 공항이 1년 중 가장 붐비는 날 중 하나입니다. 405번 도로도 막히니 5시 반에는 공항에 도착하세요.","캐나다는 국제선이라 여권이 꼭 필요합니다. 아이들 여권까지 4개를 한 사람이 모아서 들고 다니세요.","베이직 이코노미는 좌석을 고를 수 없어 가족이 흩어져 앉습니다. 밤 비행기라 아이 옆자리가 중요하니 메인 캐빈으로 잡았습니다.","퀘벡은 얼바인보다 3시간 빠릅니다. 피닉스에서 밤 비행기를 타면 바로 시계를 동부 시간으로 바꾸고 잠을 청하세요."],
+ {d:"11/25",w:"수",n:"DAY 1",t:"추수감사절 연휴 시작, 밤 비행기로 북쪽으로",where:"얼바인 → LA 공항(LAX) → 토론토(YYZ)",ph:["frontenac_ice"],drive:7,
+  lead:"수요일 밤 10시 55분, LA 공항에서 에어캐나다로 출발합니다. 토론토까지 밤새 날아가 기내에서 자고, 새벽에 토론토에서 캐나다 입국 심사를 받은 뒤 퀘벡행으로 갈아타 다음 날 아침 9시 50분에 퀘벡에 내립니다.",
+  tl:[["18:00","집에서 저녁, 아이들은 차에서 잘 수 있게 편한 옷으로"],["19:15","가방 최종 점검 · 패딩·장갑은 기내 가방 맨 위에"],["19:30","집 출발 (추수감사절 전날 밤 405번 도로, 1시간–1시간 반)"],["20:45","LAX 도착 · 짐 부치기, 보안 검색 (출발 2시간 전)"],["22:55","에어캐나다 LAX 출발 → 토론토(YYZ), 약 4시간 40분 · 기내에서 잠"]],
+  book:["에어캐나다(유나이티드 공동운항, 에어캐나다 루즈 운항) 22:55 LAX → 토론토(YYZ) → 퀘벡(YQB) 09:50 도착, 1인 $307 · 토론토 환승 1시간 34분 · 2026-10-18 Google 항공권 조회","토론토가 캐나다 첫 도착지라 캐나다 입국 심사를 토론토에서 받습니다. 1시간 34분 환승은 빠듯하니 내리자마자 ‘Connections’ 표지를 따라가세요.","대안: 아메리칸 22:59 LAX → 필라델피아 → YQB 10:24, 1인 $262 (이 경우 입국 심사는 퀘벡에서)"],
+  tips:["추수감사절 전날 수요일은 미국 공항이 1년 중 가장 붐비는 날 중 하나입니다. 밤이라도 405번 도로가 막힐 수 있으니 LAX까지 1시간 반을 잡으세요. 5일 주차보다 우버 왕복이 쌉니다.","캐나다는 국제선이라 여권이 꼭 필요합니다. 아이들 여권까지 4개를 한 사람이 모아서 들고 다니세요.","에어캐나다 루즈는 좌석 모니터가 없고 기내 와이파이로 휴대폰·태블릿에 영화를 보여 줍니다. 아이들 태블릿에 영화를 미리 내려받고 이어폰을 챙기세요. 기내식은 유료라 간식도 준비.","가족이 같이 앉으려면 예약할 때 좌석을 지정하세요. 가장 싼 요금은 좌석이 자동 배정돼 흩어질 수 있어요.","퀘벡은 얼바인보다 3시간 빠릅니다. 이륙하면 바로 시계를 동부 시간으로 바꾸고 잠을 청하세요. 토론토 도착은 현지 시간 새벽 6시 반 무렵입니다."],
   hist:["왜 11월 말의 퀘벡인가","캐나다의 추수감사절은 10월 둘째 월요일이라 이미 지났습니다. 미국 연휴에 가면 퀘벡은 평범한 평일이라 식당과 박물관이 모두 정상 영업하고, 11월 19일부터 독일식 크리스마스 마켓이 열려 도시 전체가 성탄 장식으로 바뀝니다. 대신 해가 오후 4시 10분이면 지므로, 일정은 아침 일찍 시작해 낮에 바깥을 보고 저녁엔 조명과 식사를 즐기도록 짰습니다."],
-  links:[["아메리칸항공","https://www.aa.com/"],["존웨인 공항 안내","https://www.ocair.com/"]],
-  kid:{t:"밤 비행기 타고 눈의 나라로!",fact:[["시계가 3시간 빨라져요","퀘벡은 얼바인보다 3시간 빨라요. 얼바인이 밤 9시면 퀘벡은 벌써 자정이에요."],["비행기를 세 번 타요","피닉스, 필라델피아에서 갈아타요. 비행기 안에서 자고 일어나면 캐나다!"]],
-       m:["비행기에서 시계를 동부 시간으로 바꾸기","창밖으로 피닉스의 밤 불빛 보기"]}},
-
- {d:"11/26",w:"목",n:"DAY 2",t:"400년 된 성벽 도시, 크리스마스 불이 켜지는 저녁",where:"필라델피아 → 퀘벡시티(YQB) → 구시가지",ph:["champlain","marche_noel","frontenac"],drive:0.4,
-  lead:"아침에 퀘벡에 도착합니다. 숙소에 짐을 맡기고 한 시간 눈을 붙인 뒤, 샤토 프롱트낙 앞 테라스부터 걸어 내려가 해 질 녘 조명이 켜지는 프티 샹플랭과 크리스마스 마켓을 봅니다.",
-  tl:[["새벽","필라델피아 도착 · 퀘벡행 소형기로 갈아타기"],["10:24","퀘벡 장 르사주 공항(YQB) 도착 · 캐나다 입국 심사"],["11:00","택시 20분 → 구시가지 숙소에 짐 맡기기"],["12:00","Chez Ashton에서 첫 푸틴"],["13:00","숙소에서 1시간 낮잠 (밤 비행기 뒤 꼭)"],["14:30","뒤프랭 테라스 산책 · 샤토 프롱트낙 로비 구경"],["15:30","푸니퀼레르(1879년부터 운행)로 아랫마을 프티 샹플랭까지"],["16:10","해 질 녘 · 루아얄 광장, 승리의 노트르담 교회, 퀘벡 사람들 벽화"],["17:30","독일식 크리스마스 마켓 (시청 앞, 목–일 운영)"],["19:00","Aux Anciens Canadiens 저녁 · 1675년에 지은 집"]],
+  links:[["에어캐나다","https://www.aircanada.com/"],["LA 공항 (LAX)","https://www.flylax.com/"]],
+  kid:{t:"밤 비행기 타고 눈의 나라로!",fact:[["시계가 3시간 빨라져요","퀘벡은 얼바인보다 3시간 빨라요. 얼바인이 밤 9시면 퀘벡은 벌써 자정이에요."],["토론토에서 갈아타요","밤새 날아서 캐나다에서 제일 큰 도시 토론토에 내려요. 거기서 작은 비행기로 퀘벡까지!"]],
+       m:["비행기에서 시계를 동부 시간으로 바꾸기","토론토 공항에서 빨간 단풍잎 국기 찾기"]}},
+ {d:"11/26",w:"목",n:"DAY 2",t:"400년 된 성벽 도시, 크리스마스 불이 켜지는 저녁",where:"토론토 → 퀘벡시티(YQB) → 구시가지",ph:["champlain","marche_noel","frontenac"],drive:0.4,
+  lead:"새벽에 토론토에서 캐나다 입국 심사를 받고, 아침 9시 50분 퀘벡에 도착합니다. 숙소에 짐을 맡기고 한 시간 눈을 붙인 뒤, 샤토 프롱트낙 앞 테라스부터 걸어 내려가 해 질 녘 조명이 켜지는 프티 샹플랭과 크리스마스 마켓을 봅니다.",
+  tl:[["06:30 무렵","토론토(YYZ) 도착 · 캐나다 입국 심사, 퀘벡행 국내선으로 환승"],["09:50","퀘벡 장 르사주 공항(YQB) 도착 · 짐 찾기"],["10:30","택시 20분 → 구시가지 숙소에 짐 맡기기"],["11:00","생장 거리와 다름 광장 첫 산책"],["12:00","Chez Ashton에서 첫 푸틴"],["13:00","숙소에서 1시간 낮잠 (밤 비행기 뒤 꼭)"],["14:30","뒤프랭 테라스 산책 · 샤토 프롱트낙 로비 구경"],["15:30","푸니퀼레르(1879년부터 운행)로 아랫마을 프티 샹플랭까지"],["16:10","해 질 녘 · 루아얄 광장, 승리의 노트르담 교회, 퀘벡 사람들 벽화"],["17:30","독일식 크리스마스 마켓 (시청 앞, 목–일 운영)"],["19:00","Aux Anciens Canadiens 저녁 · 1675년에 지은 집"]],
   book:["크리스마스 마켓: 2026년 11월 19일 – 12월 23일, 목–일 운영, 입장 무료 (퀘벡시 관광청 확인)","푸니퀼레르: 편도 1인 CAD $7, 현금만 받음 (역 안에 ATM)","Aux Anciens Canadiens: 매일 12–21시, 저녁은 꼭 예약. 12–17시 점심 코스가 가장 저렴합니다."],
-  tips:["캐나다 입국 심사에서는 ‘관광, 3박, 금요일까지 퀘벡, 토요일 몬트리올, 일요일 귀국’처럼 짧게 답하면 됩니다. 돌아가는 항공권과 숙소 예약을 휴대폰에 띄워 두세요.","구시가지 돌길은 언덕이 가파르고 아침저녁으로 얼어 있습니다. 운동화보다 밑창이 두꺼운 방수 부츠가 좋아요.","가게에 들어가면 먼저 ‘Bonjour!(봉주르)’ 하세요. 직원이 ‘Bonjour, hi!(봉주르, 하이)’라고 답하면 영어로 이어 가도 된다는 뜻입니다.","크리스마스 마켓은 해가 진 5시 이후가 예쁘지만 7시부터는 붐빕니다. 저녁 예약 전에 한 바퀴 도는 일정으로 잡았어요.","오늘은 미국 추수감사절 당일이지만 캐나다는 평일입니다. 칠면조 대신 퀘벡식 고기파이 ‘투르티에르(tourtière)’로 추수감사절 저녁을 먹어요."],
+  tips:["토론토 캐나다 입국 심사에서는 ‘관광, 3박, 금요일까지 퀘벡, 토요일 몬트리올, 일요일 귀국’처럼 짧게 답하면 됩니다. 돌아가는 항공권과 숙소 예약을 휴대폰에 띄워 두세요. 토론토 입국장 키오스크에서 세관 신고를 먼저 하면 줄이 짧아요.","구시가지 돌길은 언덕이 가파르고 아침저녁으로 얼어 있습니다. 운동화보다 밑창이 두꺼운 방수 부츠가 좋아요.","가게에 들어가면 먼저 ‘Bonjour!(봉주르)’ 하세요. 직원이 ‘Bonjour, hi!(봉주르, 하이)’라고 답하면 영어로 이어 가도 된다는 뜻입니다.","크리스마스 마켓은 해가 진 5시 이후가 예쁘지만 7시부터는 붐빕니다. 저녁 예약 전에 한 바퀴 도는 일정으로 잡았어요.","오늘은 미국 추수감사절 당일이지만 캐나다는 평일입니다. 칠면조 대신 퀘벡식 고기파이 ‘투르티에르(tourtière)’로 추수감사절 저녁을 먹어요."],
   hist:["샹플랭의 도시, 북미 유일의 성벽 도시","1608년 프랑스 탐험가 사뮈엘 드 샹플랭이 강폭이 좁아지는 이 절벽 아래에 거점을 세웠습니다. ‘퀘벡’은 원주민 말로 ‘강이 좁아지는 곳’이라는 뜻입니다. 멕시코 북쪽 북미에서 성벽이 그대로 남은 유일한 도시라 1985년 구시가지 전체가 유네스코 세계유산이 되었습니다. 1893년 문을 연 샤토 프롱트낙에서는 1943·1944년 처칠과 루스벨트가 만나 노르망디 상륙작전을 의논했습니다."],
   links:[["퀘벡시 관광청","https://www.quebec-cite.com/en"],["크리스마스 마켓","https://www.quebec-cite.com/fr/quoi-faire/evenements/marche-de-noel-allemand/"],["Aux Anciens Canadiens","https://auxancienscanadiens.qc.ca/"],["푸니퀼레르","https://www.funiculaire-quebec.com/"]],
   kid:{t:"동화 속 성이 있는 눈의 도시!",fact:[["세상에서 사진이 제일 많이 찍힌 호텔","샤토 프롱트낙은 ‘세계에서 가장 많이 사진 찍힌 호텔’이라는 별명이 있어요. 진짜 성처럼 생겼죠?"],["147년 된 언덕 엘리베이터","푸니퀼레르는 1879년부터 절벽 위 마을과 아랫마을을 이어 줘요. 1분이면 도착!"],["벽에 그린 가짜 건물","‘퀘벡 사람들 벽화’에는 진짜 창문처럼 보이는 그림과 역사 속 인물들이 숨어 있어요."]],
@@ -562,14 +571,14 @@ const DAYS_ko = [
   kid:{t:"칙칙폭폭, 프랑스어 도시 두 번째로!",fact:[["푸틴의 고향을 지나가요","기차가 지나는 드러먼드빌은 감자튀김에 치즈와 그레이비를 얹은 ‘푸틴’의 원조라고 주장하는 동네예요."],["성당 천장에 별이 가득","노트르담 대성당 천장은 파란 하늘에 금빛 별이 박혀 있어요. 밤엔 그 안이 빛과 음악으로 가득 차요."],["몬트리올은 섬이에요","몬트리올은 강 한가운데 있는 섬 위의 도시예요. 기차는 다리를 건너 섬으로 들어가요."]],
        m:["기차 차장님께 ‘Merci!(메르시)’ 말하기","기차 창밖으로 강과 다리 사진 찍기","AURA에서 천장 별을 몇 개까지 셀 수 있는지 해 보기"]}},
 
- {d:"11/29",w:"일",n:"DAY 5",t:"장작 오븐 베이글과 몽루아얄, 그리고 집으로",where:"구 몬트리올 → 마일엔드 → 몽루아얄 → 몬트리올 공항(YUL) → SNA",ph:["mont_royal","bagel","old_mtl"],drive:8,
-  lead:"아침 일찍 24시간 장작 오븐 베이글집에서 갓 구운 베이글을 사서, 도시 이름이 된 산 ‘몽루아얄’ 전망대에서 먹습니다. 오후 1시 비행기라 10시에는 공항으로 출발합니다.",
-  tl:[["07:30","택시 15분, St-Viateur Bagel (24시간, 장작 오븐)"],["08:15","몽루아얄 콘디아롱크 전망대 (스미스 하우스 주차장에서 걸어서 10분)"],["09:15","숙소로 돌아와 체크아웃"],["10:00","공항 택시 정액 CAD $49.45 → 몬트리올 공항(YUL) 25–35분"],["10:30","짐 부치기 · 미국 사전입국심사 (미국 세관을 몬트리올에서 통과)"],["13:10","에어캐나다(유나이티드 공동운항) YUL 출발 → 시카고(ORD)"],["19:01","존웨인 공항(SNA) 도착 · 집으로"]],
-  book:["에어캐나다·유나이티드 13:10 YUL → ORD → SNA 19:01, 1인 $934 (추수감사절 일요일이라 ‘평소보다 비쌈’ 표시) · 2026-10-18 Google 항공권 조회","더 싼 대안: 델타 12:44 YUL → 애틀랜타 → SNA 22:14, 1인 $497 (환승 대기 4시간 50분)","몬트리올 공항 ↔ 시내 택시 정액: 05–23시 CAD $49.45 (몬트리올 공항공사)"],
-  tips:["몬트리올 공항에는 미국 세관(사전입국심사)이 있어서 미국 입국 심사를 여기서 받습니다. 그래서 미국행은 국내선보다 일찍, 비행 2시간 반 전에는 도착해야 해요.","추수감사절 연휴 마지막 일요일은 미국에서 1년 중 비행기 타는 사람이 가장 많은 날입니다. 시카고 환승이 1시간 28분이라 첫 비행기가 늦으면 바로 다음 편을 물어보세요.","베이글은 참깨(sésame, 세잠)와 양귀비씨(pavot, 파보) 두 가지가 기본입니다. 한 다스 사서 비행기에서도 먹고 집에 가져가요. 메이플 시럽도 미국에 가져갈 수 있습니다.","캐나다에서 산 고기 가공품(육포, 소시지)은 미국에 들고 갈 수 없습니다. 훈제고기 샌드위치는 몬트리올에서 다 먹고 와요."],
+ {d:"11/29",w:"일",n:"DAY 5",t:"장작 오븐 베이글과 몽루아얄, 그리고 집으로",where:"구 몬트리올 → 마일엔드 → 몽루아얄 → 몬트리올 공항(YUL) → 토론토 → LAX",ph:["mont_royal","bagel","old_mtl"],drive:9,
+  lead:"아침 일찍 24시간 장작 오븐 베이글집에서 갓 구운 베이글을 사서, 도시 이름이 된 산 ‘몽루아얄’ 전망대에서 먹습니다. 오후 1시 10분 비행기로 토론토에 가서 미국 입국 심사를 받고, 저녁 8시에 LA에 내립니다.",
+  tl:[["07:30","택시 15분, St-Viateur Bagel (24시간, 장작 오븐)"],["08:15","몽루아얄 콘디아롱크 전망대 (스미스 하우스 주차장에서 걸어서 10분)"],["09:30","숙소로 돌아와 체크아웃"],["10:30","공항 택시 정액 CAD $49.45 → 몬트리올 공항(YUL) 25–35분"],["11:10","짐 부치기 (LAX까지 한 번에) · 국내선 보안 검색"],["13:10","에어캐나다 YUL 출발 → 토론토(YYZ), 약 1시간 20분"],["14:30","토론토 도착 · 미국 사전입국심사 (미국 세관을 토론토에서 통과)"],["17:15 무렵","토론토 출발 → LA, 약 5시간"],["20:04","LAX 도착 · 우버로 집에 (일요일 밤 405번 정체)"]],
+  book:["에어캐나다 13:10 YUL → 토론토(YYZ) → LAX 20:04, 1인 $926 (추수감사절 일요일이라 ‘평소보다 비쌈’ 표시) · 토론토 환승 2시간 45분 · 2026-10-18 Google 항공권 조회","대안: 에어캐나다 11:10 YUL → YYZ → LAX 16:39, 1인 $804 (환승 1시간 19분, 아침 일정을 줄여야 함) · 에어캐나다 직항 08:00 YUL → LAX 11:24, 1인 $613 (아침 일정 포기)","몬트리올 공항 ↔ 시내 택시 정액: 05–23시 CAD $49.45 (몬트리올 공항공사)"],
+  tips:["몬트리올 → 토론토는 국내선이라 1시간 반–2시간 전이면 충분합니다. 미국 입국 심사(사전입국심사)는 토론토 공항 환승 중에 받아요. 그래서 LAX에 내리면 국내선처럼 바로 나갑니다.","토론토의 미국행 환승은 ‘Connections to U.S.’ 표지를 따라가면 됩니다. 추수감사절 연휴 마지막 일요일은 심사 줄이 길어서 2시간 45분 환승을 넉넉하게 골랐어요.","베이글은 참깨(sésame, 세잠)와 양귀비씨(pavot, 파보) 두 가지가 기본입니다. 한 다스 사서 비행기에서도 먹고 집에 가져가요. 메이플 시럽도 미국에 가져갈 수 있습니다.","캐나다에서 산 고기 가공품(육포, 소시지)은 미국에 들고 갈 수 없습니다. 훈제고기 샌드위치는 몬트리올에서 다 먹고 와요."],
   hist:["왕의 산, 몽루아얄","1535년 프랑스 탐험가 자크 카르티에가 이 산에 올라 ‘몽 레알(왕의 산)’이라 이름 붙였고, 그 이름이 ‘몬트리올’이 되었습니다. 도시는 1642년 ‘빌마리’라는 작은 선교 마을로 시작했습니다. 산 위 공원은 뉴욕 센트럴파크를 만든 프레더릭 로 옴스테드가 설계해 1876년 문을 열었습니다. 몬트리올 베이글은 20세기 초 동유럽 유대인 이민자들이 들여왔는데, 꿀물에 삶아 장작 오븐에 굽기 때문에 뉴욕 베이글보다 작고 달고 쫄깃합니다."],
-  links:[["St-Viateur Bagel","https://stviateurbagel.com/"],["몽루아얄 공원","https://www.lemontroyal.qc.ca/en"],["몬트리올 공항 (미국행 안내)","https://www.admtl.com/en"],["에어캐나다","https://www.aircanada.com/"]],
-  kid:{t:"베이글 냠냠, 산 위에서 안녕!",fact:[["꿀물에 삶는 베이글","몬트리올 베이글은 꿀물에 삶고 장작불에 구워요. 가게는 1957년부터 하루도 안 쉬고 24시간 문을 열어요."],["도시 이름이 된 산","‘몽루아얄(왕의 산)’이라는 이름이 변해서 ‘몬트리올’이 되었어요."],["캐나다에서 미국에 들어가요","몬트리올 공항에는 미국 세관이 있어요. 미국 입국 심사를 캐나다에서 받는 거예요!"]],
+  links:[["St-Viateur Bagel","https://stviateurbagel.com/"],["몽루아얄 공원","https://www.lemontroyal.qc.ca/en"],["토론토 공항 미국행 환승","https://www.torontopearson.com/en/connections"],["에어캐나다","https://www.aircanada.com/"]],
+  kid:{t:"베이글 냠냠, 산 위에서 안녕!",fact:[["꿀물에 삶는 베이글","몬트리올 베이글은 꿀물에 삶고 장작불에 구워요. 가게는 1957년부터 하루도 안 쉬고 24시간 문을 열어요."],["도시 이름이 된 산","‘몽루아얄(왕의 산)’이라는 이름이 변해서 ‘몬트리올’이 되었어요."],["캐나다에서 미국에 들어가요","토론토 공항에는 미국 세관이 있어요. 미국 입국 심사를 캐나다에서 받는 거예요!"]],
        m:["베이글 가게에서 프랑스어로 주문하기","전망대에서 노트르담 대성당 찾기","미국 세관 직원에게 ‘Thank you!’ 말하기"]}}
 ];
 
@@ -613,21 +622,20 @@ const PARENT_SAY = ["Ils apprennent le français. Merci de votre patience!","일
 
 /* English version of DAYS_ko / BADGES_ko. Same dates, keys and photo order; French words carry an English-style pronunciation in parentheses. */
 const DAYS_en = [
- {d:"11/25",w:"Wed",n:"DAY 1",t:"Thanksgiving break begins: a night flight north",where:"Irvine → John Wayne Airport (SNA) → Phoenix → Philadelphia",ph:["frontenac_ice"],drive:6,
-  lead:"We leave from John Wayne Airport on Wednesday evening, right after school and work. In Phoenix we switch to a night flight and sleep on board, then connect in Philadelphia and land in Quebec City the next morning.",
-  tl:[["4:30 p.m.","Final bag check · puffers and gloves on top of the carry-ons"],["5:00 p.m.","Early dinner at home, then leave"],["5:30 p.m.","Arrive at SNA · check bags, security (2 hours early the day before Thanksgiving)"],["7:39 p.m.","American Airlines departs SNA → Phoenix (PHX)"],["Night","Connect in Phoenix to the overnight flight to Philadelphia (PHL) · sleep on board"]],
-  book:["American Airlines 7:39 p.m. SNA → PHX → PHL → YQB, arriving 10:24 a.m.; Main Cabin $380 per person (Basic $327 has no seat selection) · Google Flights, checked 2026-10-18","Because of noise rules, SNA has no departures after 10 p.m., so there is no true midnight red-eye. A 7:39 p.m. departure with an East Coast connection is the realistic way to arrive in the morning.","Alternative: United 9:10 p.m. SNA → Newark (EWR) → YQB 12:00 p.m., $660 per person (one stop, 4 h 48 min layover)"],
-  tips:["The Wednesday before Thanksgiving is one of the busiest airport days of the year, and the 405 will be jammed. Aim to be at the airport by 5:30.","Canada is an international trip, so passports are required. Have one person carry all four, including the kids'.","Basic Economy can't pick seats, so the family would be split up. On a night flight sitting next to the kids matters, so we chose Main Cabin.","Quebec is 3 hours ahead of Irvine. Once on the overnight flight from Phoenix, switch your watch to Eastern time and try to sleep."],
+ {d:"11/25",w:"Wed",n:"DAY 1",t:"Thanksgiving break begins: a night flight north",where:"Irvine → Los Angeles Airport (LAX) → Toronto (YYZ)",ph:["frontenac_ice"],drive:7,
+  lead:"At 10:55 on Wednesday night we fly Air Canada out of LAX. We sleep on the overnight flight to Toronto, clear Canadian immigration there at dawn, and connect to Quebec City, landing at 9:50 the next morning.",
+  tl:[["6:00 p.m.","Dinner at home; kids in comfy clothes so they can sleep in the car"],["7:15 p.m.","Final bag check · puffers and gloves on top of the carry-ons"],["7:30 p.m.","Leave home (the 405 on the night before Thanksgiving: 1–1.5 hours)"],["8:45 p.m.","Arrive at LAX · check bags, security (2 hours before departure)"],["10:55 p.m.","Air Canada departs LAX → Toronto (YYZ), about 4 h 40 min · sleep on board"]],
+  book:["Air Canada (codeshare with United, operated by Air Canada Rouge) 10:55 p.m. LAX → Toronto (YYZ) → Quebec (YQB), arriving 9:50 a.m.; $307 per person · 1 h 34 min connection in Toronto · Google Flights, checked 2026-10-18","Toronto is our first stop in Canada, so Canadian immigration happens there. A 1 h 34 min connection is tight: follow the 'Connections' signs as soon as you land.","Alternative: American 10:59 p.m. LAX → Philadelphia → YQB 10:24 a.m., $262 per person (immigration would then be in Quebec)"],
+  tips:["The Wednesday before Thanksgiving is one of the busiest airport days of the year. Even at night the 405 can jam, so allow 1.5 hours to LAX. A round-trip Uber is cheaper than 5 days of parking.","Canada is an international trip, so passports are required. Have one person carry all four, including the kids'.","Air Canada Rouge has no seatback screens; movies stream to your own phone or tablet over on-board Wi-Fi. Download movies to the kids' tablets ahead of time and pack earbuds. Food on board costs extra, so bring snacks.","To sit together as a family, choose seats when you book. The cheapest fares assign seats automatically and may split you up.","Quebec is 3 hours ahead of Irvine. Switch your watch to Eastern time after takeoff and try to sleep. We land in Toronto around 6:30 a.m. local time."],
   hist:["Why Quebec in late November","Canadian Thanksgiving is the second Monday of October, so it's already over. During the U.S. holiday Quebec is having an ordinary week: restaurants and museums are all open, and from November 19 the German Christmas Market turns the whole city festive. The trade-off is a 4:10 p.m. sunset, so each day starts early outside and ends with lights and dinner."],
-  links:[["American Airlines","https://www.aa.com/"],["John Wayne Airport","https://www.ocair.com/"]],
-  kid:{t:"A night flight to the land of snow!",fact:[["Clocks jump 3 hours","Quebec is 3 hours ahead of Irvine. When it's 9 p.m. in Irvine, it's already midnight in Quebec."],["Three planes!","We change planes in Phoenix and Philadelphia. Sleep on the plane and wake up in Canada!"]],
-       m:["Switch your watch to Eastern time on the plane","Spot the night lights of Phoenix from the window"]}},
-
- {d:"11/26",w:"Thu",n:"DAY 2",t:"A 400-year-old walled city where the Christmas lights come on",where:"Philadelphia → Quebec City (YQB) → Old Quebec",ph:["champlain","marche_noel","frontenac"],drive:0.4,
-  lead:"We land in Quebec in the morning, drop our bags at the hotel and nap for an hour. Then we walk down from the terrace in front of the Château Frontenac to Petit Champlain and the Christmas market just as the lights come on at dusk.",
-  tl:[["Dawn","Land in Philadelphia · connect to the small plane to Quebec"],["10:24 a.m.","Arrive at Quebec Jean Lesage Airport (YQB) · Canadian immigration"],["11:00 a.m.","20-minute taxi → leave bags at the Old Quebec hotel"],["12:00 p.m.","First poutine at Chez Ashton (shay ASH-ton)"],["1:00 p.m.","One-hour nap at the hotel (a must after a night flight)"],["2:30 p.m.","Walk the Dufferin Terrace · peek into the Château Frontenac lobby"],["3:30 p.m.","Ride the Funiculaire (running since 1879) down to Petit Champlain"],["4:10 p.m.","Sunset · Place Royale, Notre-Dame-des-Victoires church, the Fresque des Québécois mural"],["5:30 p.m.","German Christmas Market (by City Hall, open Thu–Sun)"],["7:00 p.m.","Dinner at Aux Anciens Canadiens (oh zahn-SYAN kah-nah-DYAN) · a house built in 1675"]],
+  links:[["Air Canada","https://www.aircanada.com/"],["Los Angeles Airport (LAX)","https://www.flylax.com/"]],
+  kid:{t:"A night flight to the land of snow!",fact:[["Clocks jump 3 hours","Quebec is 3 hours ahead of Irvine. When it's 9 p.m. in Irvine, it's already midnight in Quebec."],["Change planes in Toronto","We fly all night to Toronto, Canada's biggest city, then hop on a smaller plane to Quebec!"]],
+       m:["Switch your watch to Eastern time on the plane","Find the red maple-leaf flag at Toronto airport"]}},
+ {d:"11/26",w:"Thu",n:"DAY 2",t:"A 400-year-old walled city where the Christmas lights come on",where:"Toronto → Quebec City (YQB) → Old Quebec",ph:["champlain","marche_noel","frontenac"],drive:0.4,
+  lead:"After clearing Canadian immigration in Toronto at dawn, we land in Quebec at 9:50 a.m., drop our bags at the hotel and nap for an hour. Then we walk down from the terrace in front of the Château Frontenac to Petit Champlain and the Christmas market just as the lights come on at dusk.",
+  tl:[["About 6:30 a.m.","Land in Toronto (YYZ) · Canadian immigration, connect to the domestic flight to Quebec"],["9:50 a.m.","Arrive at Quebec Jean Lesage Airport (YQB) · collect bags"],["10:30 a.m.","20-minute taxi → leave bags at the Old Quebec hotel"],["11:00 a.m.","First stroll on rue Saint-Jean and Place d'Armes"],["12:00 p.m.","First poutine at Chez Ashton (shay ASH-ton)"],["1:00 p.m.","One-hour nap at the hotel (a must after a night flight)"],["2:30 p.m.","Walk the Dufferin Terrace · peek into the Château Frontenac lobby"],["3:30 p.m.","Ride the Funiculaire (running since 1879) down to Petit Champlain"],["4:10 p.m.","Sunset · Place Royale, Notre-Dame-des-Victoires church, the Fresque des Québécois mural"],["5:30 p.m.","German Christmas Market (by City Hall, open Thu–Sun)"],["7:00 p.m.","Dinner at Aux Anciens Canadiens (oh zahn-SYAN kah-nah-DYAN) · a house built in 1675"]],
   book:["Christmas market: November 19 – December 23, 2026, open Thursday–Sunday, free entry (Quebec City tourism)","Funiculaire: CAD $7 one way per person, cash only (ATM inside the station)","Aux Anciens Canadiens: daily 12–9 p.m.; book dinner. The 12–5 p.m. lunch set menu is the best value."],
-  tips:["At Canadian immigration keep answers short: 'Tourism, three nights, Quebec until Friday, Montreal Saturday, home Sunday.' Have the return flight and hotel bookings open on your phone.","Old Quebec's cobblestone streets are steep and icy in the morning and evening. Thick-soled waterproof boots beat sneakers.","When you walk into a shop, say 'Bonjour! (bohn-ZHOOR)' first. If the clerk answers 'Bonjour, hi!', it's fine to continue in English.","The market is prettiest after dark at 5, but it gets crowded from 7. That's why we do one loop before dinner.","It's U.S. Thanksgiving Day, but a normal weekday in Canada. Our Thanksgiving dinner is tourtière (toor-TYEHR), the Quebec meat pie, instead of turkey."],
+  tips:["At Canadian immigration in Toronto keep answers short: 'Tourism, three nights, Quebec until Friday, Montreal Saturday, home Sunday.' Have the return flight and hotel bookings open on your phone. Doing the customs declaration at the arrivals kiosk first shortens the line.","Old Quebec's cobblestone streets are steep and icy in the morning and evening. Thick-soled waterproof boots beat sneakers.","When you walk into a shop, say 'Bonjour! (bohn-ZHOOR)' first. If the clerk answers 'Bonjour, hi!', it's fine to continue in English.","The market is prettiest after dark at 5, but it gets crowded from 7. That's why we do one loop before dinner.","It's U.S. Thanksgiving Day, but a normal weekday in Canada. Our Thanksgiving dinner is tourtière (toor-TYEHR), the Quebec meat pie, instead of turkey."],
   hist:["Champlain's city, North America's only walled city","In 1608 French explorer Samuel de Champlain built an outpost under this cliff where the river narrows. 'Quebec' comes from an Indigenous word meaning 'where the river narrows'. It is the only city north of Mexico whose walls still stand, and in 1985 all of Old Quebec became a UNESCO World Heritage Site. At the Château Frontenac, opened in 1893, Churchill and Roosevelt met in 1943 and 1944 to plan the Normandy landings."],
   links:[["Quebec City tourism","https://www.quebec-cite.com/en"],["Christmas market","https://www.quebec-cite.com/fr/quoi-faire/evenements/marche-de-noel-allemand/"],["Aux Anciens Canadiens","https://auxancienscanadiens.qc.ca/"],["Funiculaire","https://www.funiculaire-quebec.com/"]],
   kid:{t:"A snowy city with a fairy-tale castle!",fact:[["The most photographed hotel","The Château Frontenac is nicknamed 'the most photographed hotel in the world'. Doesn't it look like a real castle?"],["A 147-year-old cliff elevator","The Funiculaire has linked the clifftop town and the lower town since 1879. One minute to the bottom!"],["Fake buildings painted on a wall","The 'Fresque des Québécois' mural hides painted windows that look real, and people from history."]],
@@ -663,14 +671,14 @@ const DAYS_en = [
   kid:{t:"All aboard for the second French city!",fact:[["Past the home of poutine","The train passes Drummondville, one of the towns that claims to have invented poutine: fries topped with cheese curds and gravy."],["A ceiling full of stars","Notre-Dame Basilica's ceiling is blue sky with golden stars. At night it fills with light and music."],["Montreal is an island","Montreal is a city on an island in the middle of the river. The train crosses a bridge to get there."]],
        m:["Say 'Merci! (mehr-SEE)' to the conductor","Take a photo of the river and bridge from the train","Count as many ceiling stars as you can at AURA"]}},
 
- {d:"11/29",w:"Sun",n:"DAY 5",t:"Wood-fired bagels, Mount Royal, and home",where:"Old Montreal → Mile End → Mount Royal → Montreal airport (YUL) → SNA",ph:["mont_royal","bagel","old_mtl"],drive:8,
-  lead:"Early in the morning we buy bagels hot from a 24-hour wood-fired oven and eat them at the lookout on Mont Royal, the mountain that gave the city its name. Our flight is at 1 p.m., so we leave for the airport at 10.",
-  tl:[["7:30 a.m.","15-minute taxi to St-Viateur Bagel (san vee-ah-TUHR; 24 hours, wood-fired)"],["8:15 a.m.","Kondiaronk Belvedere on Mount Royal (10-minute walk from the Smith House parking)"],["9:15 a.m.","Back to the hotel, check out"],["10:00 a.m.","Flat-rate airport taxi CAD $49.45 → Montreal airport (YUL), 25–35 minutes"],["10:30 a.m.","Check bags · U.S. preclearance (clear U.S. customs in Montreal)"],["1:10 p.m.","Air Canada (codeshare with United) departs YUL → Chicago (ORD)"],["7:01 p.m.","Arrive at John Wayne Airport (SNA) · home"]],
-  book:["Air Canada / United 1:10 p.m. YUL → ORD → SNA 7:01 p.m., $934 per person (flagged 'higher than usual' because it's Thanksgiving Sunday) · Google Flights, checked 2026-10-18","Cheaper alternative: Delta 12:44 p.m. YUL → Atlanta → SNA 10:14 p.m., $497 per person (4 h 50 min layover)","Montreal airport ↔ downtown taxi flat rate: CAD $49.45 from 5 a.m. to 11 p.m. (Aéroports de Montréal)"],
-  tips:["Montreal airport has U.S. customs (preclearance), so you clear U.S. entry here. That means arriving earlier than for a domestic flight: at least 2.5 hours before departure.","The Sunday after Thanksgiving is the busiest flying day of the year in the U.S. The Chicago connection is 1 h 28 min, so if the first flight is late, ask about the next one right away.","The two classic bagels are sesame (sésame, say-ZAHM) and poppy seed (pavot, pah-VOH). Buy a dozen to eat on the plane and take home. Maple syrup is fine to bring into the U.S.","Meat products bought in Canada (jerky, sausage) can't go into the U.S. Finish the smoked meat in Montreal."],
+ {d:"11/29",w:"Sun",n:"DAY 5",t:"Wood-fired bagels, Mount Royal, and home",where:"Old Montreal → Mile End → Mount Royal → Montreal airport (YUL) → Toronto → LAX",ph:["mont_royal","bagel","old_mtl"],drive:9,
+  lead:"Early in the morning we buy bagels hot from a 24-hour wood-fired oven and eat them at the lookout on Mont Royal, the mountain that gave the city its name. The 1:10 p.m. flight takes us to Toronto, where we clear U.S. immigration, and we land in LA at 8 p.m.",
+  tl:[["7:30 a.m.","15-minute taxi to St-Viateur Bagel (san vee-ah-TUHR; 24 hours, wood-fired)"],["8:15 a.m.","Kondiaronk Belvedere on Mount Royal (10-minute walk from the Smith House parking)"],["9:30 a.m.","Back to the hotel, check out"],["10:30 a.m.","Flat-rate airport taxi CAD $49.45 → Montreal airport (YUL), 25–35 minutes"],["11:10 a.m.","Check bags (through to LAX) · domestic security"],["1:10 p.m.","Air Canada departs YUL → Toronto (YYZ), about 1 h 20 min"],["2:30 p.m.","Land in Toronto · U.S. preclearance (clear U.S. customs in Toronto)"],["About 5:15 p.m.","Depart Toronto → LA, about 5 hours"],["8:04 p.m.","Arrive at LAX · Uber home (Sunday-night traffic on the 405)"]],
+  book:["Air Canada 1:10 p.m. YUL → Toronto (YYZ) → LAX 8:04 p.m., $926 per person (flagged 'higher than usual' because it's Thanksgiving Sunday) · 2 h 45 min connection in Toronto · Google Flights, checked 2026-10-18","Alternatives: Air Canada 11:10 a.m. YUL → YYZ → LAX 4:39 p.m., $804 (1 h 19 min connection, shorter morning) · Air Canada nonstop 8:00 a.m. YUL → LAX 11:24 a.m., $613 (no morning outing)","Montreal airport ↔ downtown taxi flat rate: CAD $49.45 from 5 a.m. to 11 p.m. (Aéroports de Montréal)"],
+  tips:["Montreal → Toronto is a domestic flight, so 1.5–2 hours early is enough. U.S. immigration (preclearance) happens during the Toronto connection, so at LAX you walk straight out like a domestic arrival.","In Toronto, follow the 'Connections to U.S.' signs. On the last Sunday of Thanksgiving weekend the lines are long, which is why we chose a roomy 2 h 45 min connection.","The two classic bagels are sesame (sésame, say-ZAHM) and poppy seed (pavot, pah-VOH). Buy a dozen to eat on the plane and take home. Maple syrup is fine to bring into the U.S.","Meat products bought in Canada (jerky, sausage) can't go into the U.S. Finish the smoked meat in Montreal."],
   hist:["Mount Royal, the King's Mountain","In 1535 French explorer Jacques Cartier climbed this hill and named it 'Mont Réal (King's Mountain)', which became 'Montreal'. The city began in 1642 as a small mission called Ville-Marie. The park on top was designed by Frederick Law Olmsted, who also created New York's Central Park, and opened in 1876. Montreal bagels were brought by Eastern European Jewish immigrants in the early 1900s; boiled in honey water and baked in wood-fired ovens, they're smaller, sweeter and chewier than New York bagels."],
-  links:[["St-Viateur Bagel","https://stviateurbagel.com/"],["Mount Royal Park","https://www.lemontroyal.qc.ca/en"],["Montreal airport (U.S. flights)","https://www.admtl.com/en"],["Air Canada","https://www.aircanada.com/"]],
-  kid:{t:"Bagel time, and goodbye from the mountain!",fact:[["Bagels boiled in honey water","Montreal bagels are boiled in honey water and baked over a wood fire. The shop has been open 24 hours a day since 1957."],["A mountain that named a city","'Mont Royal' (King's Mountain) slowly turned into the name 'Montreal'."],["Entering the U.S. from Canada","Montreal airport has U.S. customs. You go through U.S. immigration while still in Canada!"]],
+  links:[["St-Viateur Bagel","https://stviateurbagel.com/"],["Mount Royal Park","https://www.lemontroyal.qc.ca/en"],["Toronto Pearson U.S. connections","https://www.torontopearson.com/en/connections"],["Air Canada","https://www.aircanada.com/"]],
+  kid:{t:"Bagel time, and goodbye from the mountain!",fact:[["Bagels boiled in honey water","Montreal bagels are boiled in honey water and baked over a wood fire. The shop has been open 24 hours a day since 1957."],["A mountain that named a city","'Mont Royal' (King's Mountain) slowly turned into the name 'Montreal'."],["Entering the U.S. from Canada","Toronto airport has U.S. customs. You go through U.S. immigration while still in Canada!"]],
        m:["Order bagels in French","Find Notre-Dame Basilica from the lookout","Say 'Thank you!' to the U.S. customs officer"]}}
 ];
 
@@ -696,20 +704,20 @@ const BADGES_en = [
    [끼니, 장소/메뉴, 설명, 태그]  태그: rsv=예약 추천, home=집밥, air=기내·공항 · 프랑스어 이름 뒤 괄호는 발음 */
 const MP_ko = {
  A:{
-  "11/25":[["점심","학교 · 회사","",""],["저녁","얼바인 집에서 이른 저녁","공항 가기 전 든든하게, 국물 요리 추천",'home'],["밤","기내 간식 · 피닉스 공항","환승 시간에 물과 간식 사 두기",'air']],
-  "11/26":[["아침","필라델피아 공항 (환승 중)","커피와 샌드위치",'air'],["점심","Chez Ashton (셰 애슈턴)","1969년 퀘벡시티에서 시작한 푸틴 가게, 카운터 주문",""],["저녁","Aux Anciens Canadiens (오 장시앵 카나디앵)","1675년 지은 ‘자케 집’에서 먹는 투르티에르와 메이플 슈거파이(tarte au sucre, 따르트 오 쒸크르)",'rsv']],
+  "11/25":[["점심","학교 · 회사","",""],["저녁","얼바인 집에서 저녁","공항 가기 전 든든하게, 국물 요리 추천",'home'],["밤","LAX 공항 · 기내 간식","에어캐나다 루즈 기내식은 유료, 물과 간식 미리 사기",'air']],
+  "11/26":[["아침","토론토 공항 (환승 중)","입국 심사 뒤 탑승구 근처에서 커피와 샌드위치",'air'],["점심","Chez Ashton (셰 애슈턴)","1969년 퀘벡시티에서 시작한 푸틴 가게, 카운터 주문",""],["저녁","Aux Anciens Canadiens (오 장시앵 카나디앵)","1675년 지은 ‘자케 집’에서 먹는 투르티에르와 메이플 슈거파이(tarte au sucre, 따르트 오 쒸크르)",'rsv']],
   "11/27":[["아침","Paillard (파야르) · 생장 거리","크루아상과 핫초콜릿(chocolat chaud, 쇼콜라 쇼), 아침 일찍 줄이 짧음",""],["점심","La Midinette (라 미디네트) · 오를레앙섬 생장 마을","9–16시, 수프·샌드위치·크레프, 1인 CAD $10–20",""],["저녁","Le Lapin Sauté (르 라팽 소테) · 프티 샹플랭","토끼·오리 요리와 메이플 크렘 브륄레, 아이 메뉴 있음",'rsv']],
   "11/28":[["아침","Le Petit Cochon Dingue (르 프티 코숑 댕그)","1979년부터 프티 샹플랭의 아침 카페, 에그 베네딕트",""],["점심","기차 도시락 (Paillard 샌드위치)","VIA 이코노미 간식 카트도 있음",""],["저녁","Schwartz's Deli (슈워츠 델리)","1928년부터 이어진 몬트리올 훈제고기 샌드위치, 예약 없이 줄 서기",""]],
-  "11/29":[["아침","St-Viateur Bagel (생비아퇴르 베이글)","24시간 장작 오븐, 갓 나온 참깨 베이글과 크림치즈",""],["점심","몬트리올 공항 (미국 사전입국심사 뒤)","심사 뒤 탑승구 쪽 식당에서",'air'],["저녁","기내 · 집","19:01 SNA 도착, 피자 배달 추천",'home']]
+  "11/29":[["아침","St-Viateur Bagel (생비아퇴르 베이글)","24시간 장작 오븐, 갓 나온 참깨 베이글과 크림치즈",""],["점심","토론토 공항 (미국 사전입국심사 뒤)","환승 2시간 45분, 심사 뒤 미국행 탑승구 쪽 식당에서",'air'],["저녁","기내 · 집","20:04 LAX 도착, 기내 간식 + 집에 가는 길에 간단히",'home']]
  }
 };
 const MP_en = {
  A:{
-  "11/25":[["Lunch","School · work","",""],["Dinner","Early dinner at home in Irvine","Eat well before the airport, soup is a good idea",'home'],["Night","Snacks on board · Phoenix airport","Buy water and snacks during the connection",'air']],
-  "11/26":[["Breakfast","Philadelphia airport (connecting)","Coffee and a sandwich",'air'],["Lunch","Chez Ashton (shay ASH-ton)","Quebec City's own poutine chain since 1969, order at the counter",""],["Dinner","Aux Anciens Canadiens (oh zahn-SYAN kah-nah-DYAN)","Tourtière and maple sugar pie (tarte au sucre, tart oh SEW-kruh) in a house built in 1675",'rsv']],
+  "11/25":[["Lunch","School · work","",""],["Dinner","Dinner at home in Irvine","Eat well before the airport, soup is a good idea",'home'],["Night","LAX · snacks on board","Air Canada Rouge food costs extra; buy water and snacks first",'air']],
+  "11/26":[["Breakfast","Toronto airport (connecting)","Coffee and a sandwich near the gate after immigration",'air'],["Lunch","Chez Ashton (shay ASH-ton)","Quebec City's own poutine chain since 1969, order at the counter",""],["Dinner","Aux Anciens Canadiens (oh zahn-SYAN kah-nah-DYAN)","Tourtière and maple sugar pie (tarte au sucre, tart oh SEW-kruh) in a house built in 1675",'rsv']],
   "11/27":[["Breakfast","Paillard (pie-YAR) · rue Saint-Jean","Croissants and hot chocolate (chocolat chaud, shoh-koh-LAH SHOH); short line early",""],["Lunch","La Midinette (lah mee-dee-NET) · Saint-Jean, Île d'Orléans","9 a.m.–4 p.m., soup, sandwiches, crêpes, CAD $10–20 per person",""],["Dinner","Le Lapin Sauté (luh lah-PAN soh-TAY) · Petit Champlain","Rabbit and duck dishes, maple crème brûlée, kids' menu",'rsv']],
   "11/28":[["Breakfast","Le Petit Cochon Dingue (luh puh-TEE koh-SHOHN DANG)","Petit Champlain breakfast café since 1979, eggs Benedict",""],["Lunch","Train picnic (Paillard sandwiches)","VIA economy also has a snack cart",""],["Dinner","Schwartz's Deli","Montreal smoked meat since 1928, no reservations, line up",""]],
-  "11/29":[["Breakfast","St-Viateur Bagel (san vee-ah-TUHR)","Wood-fired oven open 24 hours, hot sesame bagels and cream cheese",""],["Lunch","Montreal airport (after U.S. preclearance)","Eat near the gate after clearing U.S. customs",'air'],["Dinner","On board · home","Land at SNA 7:01 p.m., order pizza",'home']]
+  "11/29":[["Breakfast","St-Viateur Bagel (san vee-ah-TUHR)","Wood-fired oven open 24 hours, hot sesame bagels and cream cheese",""],["Lunch","Toronto airport (after U.S. preclearance)","2 h 45 min connection; eat near the U.S. gates after clearing customs",'air'],["Dinner","On board · home","Land at LAX 8:04 p.m.; snacks on board, something quick on the way home",'home']]
  }
 };
 
@@ -738,9 +746,9 @@ const TIPS_ko = [
   ["겨울 타이어는 12월 1일부터 의무","퀘벡주는 12월 1일 – 3월 15일 겨울 타이어가 법입니다. 우리 일정은 그 전이지만 첫눈이 올 수 있으니 렌터카 픽업 때 꼭 물어보세요."],
   ["공항 택시는 정액","몬트리올 공항 ↔ 시내는 낮 CAD $49.45 정액입니다. 퀘벡 공항 ↔ 구시가지는 미터 요금으로 CAD $40–50 정도예요."]]],
  ["입국 · 출국","캐나다 들어갈 때, 미국 돌아올 때",[
-  ["캐나다 입국은 여권 필수","미국에서 비행기로 가도 캐나다는 외국입니다. 아이들까지 모두 여권이 있어야 하고, 부모가 함께 가면 다른 서류는 필요 없습니다.",1],
+  ["캐나다 입국은 여권 필수, 심사는 토론토에서","미국에서 비행기로 가도 캐나다는 외국이고, 입국 심사는 첫 도착지인 토론토에서 받습니다. 아이들까지 모두 여권이 있어야 하고, 부모가 함께 가면 다른 서류는 필요 없습니다.",1],
   ["eTA가 필요한지 꼭 확인","한국 여권으로 비행기를 타고 캐나다에 들어가면 eTA(전자여행허가, CAD $7)가 필요합니다. 미국 영주권자는 eTA 없이 여권과 영주권 카드를 보여 주면 되고, 미국 시민은 필요 없습니다. 공식 사이트 canada.ca에서만 신청하세요.",1],
-  ["미국 입국 심사를 몬트리올에서","몬트리올 공항에는 미국 세관·국경보호청(CBP)이 있어 미국 입국 심사를 출발 전에 받습니다. 짐을 부친 뒤 미국 심사를 통과하면, SNA에 내릴 때는 국내선처럼 바로 나옵니다. 미국 재입국 서류(영주권·비자)를 꼭 챙기세요.",1],
+  ["미국 입국 심사를 토론토에서","토론토 공항에는 미국 세관·국경보호청(CBP)이 있어 미국행 환승 중에 미국 입국 심사를 받습니다. 심사를 통과하면 LAX에 내릴 때는 국내선처럼 바로 나옵니다. 미국 재입국 서류(영주권·비자)를 꼭 챙기세요.",1],
   ["미국으로 못 가져가는 것","캐나다에서 산 육포·소시지 같은 고기 가공품과 생과일은 안 됩니다. 메이플 시럽, 초콜릿, 베이글, 치즈(단단한 것)는 괜찮아요. 신고서에는 정직하게 적으면 됩니다."]]],
  ["먹을거리","퀘벡에서 꼭 먹어 볼 것",[
   ["푸틴(Poutine, 퀘벡식 발음 ‘푸친’)","감자튀김에 쫄깃한 치즈 덩어리(fromage en grains, 프로마주 앙 그랭)를 올리고 뜨거운 그레이비를 붓습니다. 1950년대 퀘벡 시골 식당에서 시작됐고, 치즈가 ‘뽀득’ 소리 나면 신선한 거예요."],
@@ -775,9 +783,9 @@ const TIPS_en = [
   ["Winter tires are law from December 1","Quebec requires winter tires Dec 1 – Mar 15. Our trip is just before, but snow is possible, so ask at the rental counter."],
   ["Airport taxis are flat-rate","Montreal airport ↔ downtown is a flat CAD $49.45 by day. Quebec airport ↔ Old Quebec is metered, about CAD $40–50."]]],
  ["Entering · Leaving","Going into Canada, coming back to the U.S.",[
-  ["Passports for everyone","Even flying from the U.S., Canada is a foreign country. The kids need passports too; with both parents traveling, nothing else is needed.",1],
+  ["Passports for everyone; immigration is in Toronto","Even flying from the U.S., Canada is a foreign country, and immigration happens at your first stop, Toronto. The kids need passports too; with both parents traveling, nothing else is needed.",1],
   ["Check whether you need an eTA","Flying into Canada on a Korean passport requires an eTA (CAD $7). U.S. green-card holders show their passport and green card instead; U.S. citizens need nothing. Apply only at canada.ca.",1],
-  ["U.S. immigration happens in Montreal","Montreal airport has U.S. Customs and Border Protection preclearance. After checking bags you clear U.S. entry there, and land at SNA like a domestic flight. Bring your green card or visa papers.",1],
+  ["U.S. immigration happens in Toronto","Toronto airport has U.S. Customs and Border Protection preclearance, so you clear U.S. entry during the connection and land at LAX like a domestic flight. Bring your green card or visa papers.",1],
   ["What you can't bring back","No jerky, sausages or other meat products bought in Canada, and no fresh fruit. Maple syrup, chocolate, bagels and hard cheese are fine. Just declare honestly."]]],
  ["Food","Must-tries in Quebec",[
   ["Poutine (Quebecers say 'poo-TSEEN')","Fries topped with squeaky cheese curds (fromage en grains, froh-MAHZH ahn GRAN) and hot gravy. Born in rural Quebec diners in the 1950s; if the cheese squeaks, it's fresh."],
@@ -791,11 +799,11 @@ const TIPS_en = [
    lang: 음성 언어 (기본 fr-CA, 미국 사전입국심사는 en-US). 장면 글은 ko/en 두 가지 */
 const SCENES = [
  {id:"douane", lang:"fr",
-  ko:{t:"캐나다 입국 심사", where:"11/26 퀘벡 공항 · 모두", them:"국경관리관 (Agent des services frontaliers)",
-   intro:"심사관은 프랑스어·영어를 모두 씁니다. 프랑스어로 시작해도, 막히면 ‘In English, please’라고 하면 바로 바꿔 줘요.",
+  ko:{t:"캐나다 입국 심사", where:"11/26 토론토 공항 · 모두", them:"국경관리관 (Agent des services frontaliers)",
+   intro:"토론토는 영어권이라 심사관이 영어로 먼저 묻지만, 캐나다 연방 공무원은 프랑스어도 씁니다. ‘Bonjour!(봉주르)’로 시작하면 프랑스어로 바꿔 주고, 막히면 ‘In English, please’라고 하면 돼요.",
    tips:["‘collations(콜라시옹)’은 퀘벡에서 ‘간식’이라는 뜻이에요. 사과나 바나나 같은 생과일은 신고 대상이니 비행기에서 다 먹고 내려요.","아이들이 먼저 ‘Bonjour!(봉주르)’ 하고 인사하면 분위기가 훨씬 부드러워집니다.","돌아가는 항공권(11/29 몬트리올 출발)을 휴대폰에 띄워 두세요."]},
-  en:{t:"Entering Canada", where:"11/26 Quebec airport · everyone", them:"Border officer (Agent des services frontaliers)",
-   intro:"Officers speak French and English. Start in French, and if you get stuck just say 'In English, please' and they'll switch.",
+  en:{t:"Entering Canada", where:"11/26 Toronto airport · everyone", them:"Border officer (Agent des services frontaliers)",
+   intro:"Toronto is English-speaking, so the officer will start in English, but federal officers also speak French. Open with 'Bonjour! (bohn-ZHOOR)' and they'll switch to French; if you get stuck, just say 'In English, please'.",
    tips:["In Quebec 'collations (koh-lah-SYOHN)' means snacks. Fresh fruit like apples and bananas must be declared, so finish it on the plane.","If the kids say 'Bonjour! (bohn-ZHOOR)' first, the whole exchange gets friendlier.","Have the return flight (11/29 from Montreal) open on your phone."]},
   lines:[
    ["T","Bonjour, hi! Passeports, s'il vous plaît.","안녕하세요! 여권 주세요.","봉주르, 하이! 파스포르, 실 부 플레.","Hello! Passports, please.","bohn-ZHOOR, hi! pass-POR, seel voo PLEH."],
@@ -907,12 +915,12 @@ const SCENES = [
    ["T","Ils sortent du four. Attention, c'est chaud!","오븐에서 막 나왔어요. 뜨거우니 조심해요!","일 소르트 뒤 푸르. 아탕시옹, 쎄 쇼!","They're fresh out of the oven. Careful, they're hot!","eel SORT dew FOOR. ah-tahn-SYOHN, say SHOH!"],
    ["M","Merci! Bonne journée!","고마워요! 좋은 하루 보내세요!","메르시! 본 주르네!","Thanks! Have a nice day!","mehr-SEE! bun zhoor-NAY!"]]},
  {id:"cbp", lang:"en",
-  ko:{t:"미국 사전입국심사 (영어)", where:"11/29 몬트리올 공항 · 모두", them:"미국 세관 직원 (CBP Officer)",
-   intro:"몬트리올 공항에서 받는 미국 입국 심사는 영어로 합니다. 미국에 사는 가족이라 질문이 짧아요.",
-   tips:["이 심사를 통과하면 SNA에 내릴 때는 국내선처럼 바로 나갑니다.","영주권자라면 여권과 영주권 카드를, 비자 신분이라면 여권과 비자 서류를 같이 내요.","심사 줄은 탑승 직전까지 길어질 수 있어요. 추수감사절 일요일이니 비행 2시간 반 전에 공항 도착!"]},
-  en:{t:"U.S. preclearance (English)", where:"11/29 Montreal airport · everyone", them:"U.S. customs officer (CBP Officer)",
-   intro:"U.S. entry at Montreal airport is in English. As a family living in the U.S., the questions are short.",
-   tips:["Once you clear here, you walk straight out at SNA like a domestic flight.","Green-card holders show passport + green card; visa holders show passport + visa papers.","The line can grow right up to boarding. It's Thanksgiving Sunday, so be at the airport 2.5 hours early!"]},
+  ko:{t:"미국 사전입국심사 (영어)", where:"11/29 토론토 공항 환승 · 모두", them:"미국 세관 직원 (CBP Officer)",
+   intro:"토론토 공항 환승 중에 받는 미국 입국 심사는 영어로 합니다. 미국에 사는 가족이라 질문이 짧아요.",
+   tips:["이 심사를 통과하면 LAX에 내릴 때는 국내선처럼 바로 나갑니다.","영주권자라면 여권과 영주권 카드를, 비자 신분이라면 여권과 비자 서류를 같이 내요.","심사 줄은 탑승 직전까지 길어질 수 있어요. 추수감사절 일요일이라 토론토 환승을 2시간 45분으로 넉넉히 잡았어요."]},
+  en:{t:"U.S. preclearance (English)", where:"11/29 Toronto connection · everyone", them:"U.S. customs officer (CBP Officer)",
+   intro:"U.S. entry during the Toronto connection is in English. As a family living in the U.S., the questions are short.",
+   tips:["Once you clear here, you walk straight out at LAX like a domestic flight.","Green-card holders show passport + green card; visa holders show passport + visa papers.","The line can grow right up to boarding. It's Thanksgiving Sunday, so we picked a roomy 2 h 45 min Toronto connection."]},
   lines:[
    ["T","Good morning. Where are you heading today?","안녕하세요. 오늘 어디로 가세요?","굿 모닝. 웨어 아 유 헤딩 투데이?","",""],
    ["M","Good morning. We're going home to Irvine, California.","캘리포니아 얼바인 집으로 가요.","굿 모닝. 위어 고잉 홈 투 어바인, 캘리포니아.","",""],
@@ -966,7 +974,7 @@ function fig(key){ return `<figure class="ph">${img(key)}<figcaption>${PHOTO[key
 const MK = 260, MC = Math.cos(46.5*Math.PI/180);
 const proj = (lat,lon) => [(lon+74.6)*MC*MK, (47.66-lat)*MK];
 const PL = {
-  sna_off:[0,0,"SNA에서","From SNA"], sna_back:[0,0,"SNA로","To SNA"],
+  lax_off:[0,0,"LAX에서","From LAX"], lax_back:[0,0,"LAX로","To LAX"],
   yqb:[46.7911,-71.3933,"퀘벡 공항(YQB)","Quebec airport (YQB)"], oldqc:[46.8123,-71.2070,"구시가지 (숙소)","Old Quebec (hotel)"], palais:[46.8173,-71.2135,"팔레역","Gare du Palais"],
   montmorency:[46.8935,-71.1500,"몽모랑시 폭포","Montmorency Falls"], steanne:[47.0245,-70.9286,"생탄드보프레 대성당","Sainte-Anne-de-Beaupré"], stjean:[46.9155,-70.8960,"오를레앙섬 생장","Saint-Jean, Île d'Orléans"],
   spetronille:[46.8530,-71.1360,"생트페트로니유","Sainte-Pétronille"], stfoy:[46.7636,-71.2952,""], charny:[46.712,-71.262,""], drummond:[45.882,-72.484,""],
@@ -984,14 +992,14 @@ const D = (m,p,team)=>({m,p,team});
 const RAIL = ["palais","stfoy","qbridge","charny","drummond","sthyacinthe","stlambert","victoria","mtlcentral"];
 const MAPS = {
  A:{
-  "11/25":{legs:[D("fly",["sna_off","yqb"])],stops:["yqb"],note:"SNA → 피닉스 → 필라델피아 → 퀘벡, 밤새 비행해 다음 날 10:24 도착",note_en:"SNA → Phoenix → Philadelphia → Quebec, flying overnight to land at 10:24 a.m. the next day"},
-  "11/26":{legs:[D("fly",["sna_off","yqb"]),D("drive",["yqb","oldqc"])],stops:["yqb","oldqc"],note:"공항에서 구시가지까지 택시 20분, 그다음은 모두 걸어서",note_en:"20-minute taxi from the airport to Old Quebec, then everything on foot"},
+  "11/25":{legs:[D("fly",["lax_off","yqb"])],stops:["yqb"],note:"LAX → 토론토 → 퀘벡, 밤새 비행해 다음 날 09:50 도착",note_en:"LAX → Toronto → Quebec, flying overnight to land at 9:50 a.m. the next day"},
+  "11/26":{legs:[D("fly",["lax_off","yqb"]),D("drive",["yqb","oldqc"])],stops:["yqb","oldqc"],note:"공항에서 구시가지까지 택시 20분, 그다음은 모두 걸어서",note_en:"20-minute taxi from the airport to Old Quebec, then everything on foot"},
   "11/27":{legs:[D("drive",["oldqc","r440a","r440b","montmorency","r138a","r138b","steanne","r138b","r138a","bridge_n","bridge_s","stpierre","mitan","stjean","stlaurent","pet_rd","spetronille","bridge_s","bridge_n","r440b","r440a","oldqc"])],stops:["oldqc","montmorency","steanne","stjean","spetronille"],note:"렌터카 하루 · 약 120km, 강 북쪽 해안을 따라 갔다가 다리를 건너 섬으로",note_en:"One-day rental · about 120 km, along the north shore and across the bridge to the island"},
   "11/28":{legs:[D("rail",RAIL),D("drive",["mtlcentral","oldmtl","schwartz","oldmtl"])],stops:["palais","mtlcentral"],note:"VIA 레일 약 260km · 3시간 22분, 강 남쪽 들판을 지나 빅토리아 다리로 몬트리올 섬에",note_en:"VIA Rail, about 260 km · 3 h 22 min, through the fields south of the river and over the Victoria Bridge onto Montreal island"},
-  "11/29":{legs:[D("drive",["oldmtl","viateur","kondiaronk","oldmtl","yul"]),D("fly",["yul","sna_back"])],stops:["oldmtl","viateur","kondiaronk","yul"],note:"택시로 아침 나들이 후 공항까지 25–35분 · 시카고를 거쳐 SNA로",note_en:"Morning outing by taxi, then 25–35 minutes to the airport · home to SNA via Chicago"}
+  "11/29":{legs:[D("drive",["oldmtl","viateur","kondiaronk","oldmtl","yul"]),D("fly",["yul","lax_back"])],stops:["oldmtl","viateur","kondiaronk","yul"],note:"택시로 아침 나들이 후 공항까지 25–35분 · 토론토를 거쳐 LAX로",note_en:"Morning outing by taxi, then 25–35 minutes to the airport · home to LAX via Toronto"}
  }
 };
-const isOff = k => k==="sna_off"||k==="sna_back";
+const isOff = k => k==="lax_off"||k==="lax_back";
 function bboxOf(keys){
   let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
   keys.filter(k=>!isOff(k)).forEach(k=>{const [x,y]=proj(PL[k][0],PL[k][1]); x0=Math.min(x0,x);y0=Math.min(y0,y);x1=Math.max(x1,x);y1=Math.max(y1,y);});
@@ -1014,7 +1022,7 @@ function scaleBar(vx,vy,vw,vh,fs,K,T){
 }
 function offXY(k, leg, vx, vw){
   const other = leg.p.find(o=>!isOff(o)); const [,y]=proj(PL[other][0],PL[other][1]);
-  return [vx-4, y + (k==="sna_off"? -vw*0.08 : vw*0.06)];
+  return [vx-4, y + (k==="lax_off"? -vw*0.08 : vw*0.06)];
 }
 function legPath(leg, vx, vw){
   const pts = leg.p.map(k=> isOff(k) ? offXY(k,leg,vx,vw) : proj(PL[k][0],PL[k][1]));
@@ -1141,7 +1149,7 @@ function board(){
 
 /* ---------- logistics per day ---------- */
 const STAY = {"11/25":["기내 (밤 비행기)","On board (night flight)"],"11/26":["퀘벡 구시가지 호텔","Old Quebec hotel"],"11/27":["퀘벡 구시가지 호텔","Old Quebec hotel"],"11/28":["구 몬트리올 호텔","Old Montreal hotel"],"11/29":["얼바인 집","Home in Irvine"]};
-const MOVE = {"11/25":["항공 (피닉스·필라델피아 환승)","Flights (via Phoenix, Philadelphia)"],"11/26":["항공 + 택시 20분 · 도보","Flight + 20-min taxi · walking"],"11/27":["렌터카 하루 · 약 120km","One-day rental · about 120 km"],"11/28":["도보 · VIA 레일 3시간 22분 · 택시","Walking · VIA Rail 3 h 22 min · taxi"],"11/29":["택시 · 항공 (시카고 환승)","Taxi · flights (via Chicago)"]};
+const MOVE = {"11/25":["항공 (토론토 환승)","Flights (via Toronto)"],"11/26":["항공 + 택시 20분 · 도보","Flight + 20-min taxi · walking"],"11/27":["렌터카 하루 · 약 120km","One-day rental · about 120 km"],"11/28":["도보 · VIA 레일 3시간 22분 · 택시","Walking · VIA Rail 3 h 22 min · taxi"],"11/29":["택시 · 항공 (토론토 환승)","Taxi · flights (via Toronto)"]};
 const stay = d => L(...STAY[d]);
 function infoList(team,d){
   const rows = [[L("숙박","Stay"),stay(d)],[L("이동","Getting around"),L(...MOVE[d])]];
@@ -1220,7 +1228,7 @@ function syncChoiceCost(){
   if(typeof S==="undefined") return;
   DAYS_ko.filter(x=>x.choice).forEach(x=>{ const cur=getChoice(x.choice);
     Object.entries(CHOICE_ITEMS[x.choice.id]).forEach(([k,ids])=>S.items.forEach(i=>{ if(ids.includes(i.id)) i.on = k===cur; })); });
-  try{ localStorage.setItem("jq_cost", JSON.stringify(S)); }catch(e){}
+  try{ localStorage.setItem("jq_cost2", JSON.stringify(S)); }catch(e){}
 }
 /* ---------- French badges (the Junior Ranger slot) ---------- */
 function jrDone(){ try{ return JSON.parse(localStorage.getItem("jq_jr")||"{}"); }catch(e){ return {}; } }
@@ -1279,10 +1287,10 @@ function dayKid(x,i){
 
 /* ---------- cost model (USD; CAD items converted at fx) ---------- */
 const FLIGHTS = {
-  aa_ac:{label:"가는 편 아메리칸 19:39 (PHX·PHL 경유, 10:24 도착) + 오는 편 에어캐나다·유나이티드 13:10 (ORD 경유, 19:01 도착)",label_en:"Out: American 7:39 p.m. (via PHX·PHL, arr. 10:24 a.m.) + back: Air Canada/United 1:10 p.m. (via ORD, arr. 7:01 p.m.)",out:380,back:934},
-  aa_dl:{label:"가는 편 아메리칸 19:39 + 오는 편 델타 12:44 (ATL 경유, 22:14 도착)",label_en:"Out: American 7:39 p.m. + back: Delta 12:44 p.m. (via ATL, arr. 10:14 p.m.)",out:380,back:497},
-  aab_ac:{label:"가는 편 아메리칸 베이직 (좌석 지정 불가) + 오는 편 에어캐나다·유나이티드 13:10",label_en:"Out: American Basic (no seat choice) + back: Air Canada/United 1:10 p.m.",out:327,back:934},
-  ua_ac:{label:"가는 편 유나이티드 21:10 (EWR 경유, 12:00 도착) + 오는 편 에어캐나다·유나이티드 13:10",label_en:"Out: United 9:10 p.m. (via EWR, arr. 12:00 p.m.) + back: Air Canada/United 1:10 p.m.",out:660,back:934}
+  ac_ac:{short:"에어캐나다 22:55 · 오는 편 13:10 (둘 다 토론토 경유)",short_en:"Air Canada 10:55 p.m. · back 1:10 p.m. (both via Toronto)",label:"가는 편 에어캐나다 22:55 (토론토 경유, 09:50 도착) + 오는 편 에어캐나다 13:10 (토론토 경유, 20:04 도착)",label_en:"Out: Air Canada 10:55 p.m. (via Toronto, arr. 9:50 a.m.) + back: Air Canada 1:10 p.m. (via Toronto, arr. 8:04 p.m.)",out:307,back:926},
+  ac_ac11:{short:"에어캐나다 22:55 · 오는 편 11:10",short_en:"Air Canada 10:55 p.m. · back 11:10 a.m.",label:"가는 편 에어캐나다 22:55 + 오는 편 에어캐나다 11:10 (토론토 경유, 16:39 도착)",label_en:"Out: Air Canada 10:55 p.m. + back: Air Canada 11:10 a.m. (via Toronto, arr. 4:39 p.m.)",out:307,back:804},
+  ac_ac8:{short:"에어캐나다 22:55 · 오는 편 직항 08:00",short_en:"Air Canada 10:55 p.m. · back nonstop 8:00 a.m.",label:"가는 편 에어캐나다 22:55 + 오는 편 에어캐나다 직항 08:00 (11:24 도착, 아침 일정 없음)",label_en:"Out: Air Canada 10:55 p.m. + back: Air Canada nonstop 8:00 a.m. (arr. 11:24 a.m., no morning outing)",out:307,back:613},
+  aa_ac:{short:"아메리칸 22:59 · 오는 편 에어캐나다 13:10",short_en:"American 10:59 p.m. · back Air Canada 1:10 p.m.",label:"가는 편 아메리칸 22:59 (필라델피아 경유, 10:24 도착) + 오는 편 에어캐나다 13:10",label_en:"Out: American 10:59 p.m. (via Philadelphia, arr. 10:24 a.m.) + back: Air Canada 1:10 p.m.",out:262,back:926}
 };
 const flabel = f => L(f.label, f.label_en);
 const HOTELS = {
@@ -1300,14 +1308,14 @@ const it = (o)=>Object.assign({on:true, cur:"USD", tag:"est"}, o);
 const TX = 1.14975;   // GST 5% + QST 9.975%
 const r2 = n => Math.round(n*100)/100;
 function freshState(){ return {
-  fx:0.72, flight:"aa_ac", style:"std", reserve:5,
+  fx:0.72, flight:"ac_ac", style:"std", reserve:5,
   items:[
     it({id:"c_air",cat:"air",lbl:"항공권 왕복 (1인, 아이도 같은 요금)",lbl_en:"Round-trip airfare (per person, kids pay the same)",kind:"flight",q:4,tag:"ok"}),
-    it({id:"c_bag",cat:"air",lbl:"위탁 수하물 (가방 2개, 가는 편 $50 + 오는 편 약 $35)",lbl_en:"Checked bags (2 bags, $50 out + about $35 back)",u:85,q:2,note:"메인 캐빈 기준, 기내 가방은 무료",note_en:"Main Cabin; carry-ons are free"}),
+    it({id:"c_bag",cat:"air",lbl:"위탁 수하물 (가방 2개, 편도 약 $35 × 왕복)",lbl_en:"Checked bags (2 bags, about $35 each way)",u:70,q:2,note:"에어캐나다 미국–캐나다 노선 첫 가방, 요금 종류에 따라 다름",note_en:"Air Canada U.S.–Canada first bag; varies by fare type"}),
     it({id:"c_qc",cat:"stay",kind:"hotel",h:"qc",q:1,tag:"ok"}),
     it({id:"c_mtl",cat:"stay",kind:"hotel",h:"mtl",q:1,tag:"ok"}),
     it({id:"c_hk",cat:"stay",lbl:"호텔 청소 팁 (1박)",lbl_en:"Housekeeping tip (per night)",u:5,cur:"CAD",q:3}),
-    it({id:"c_uber",cat:"move",lbl:"우버 왕복 (얼바인 집 ↔ SNA)",lbl_en:"Uber, home in Irvine ↔ SNA (each way)",u:30,q:2}),
+    it({id:"c_uber",cat:"move",lbl:"우버 (얼바인 집 ↔ LAX, 편도)",lbl_en:"Uber, home in Irvine ↔ LAX (each way)",u:75,q:2,note:"LAX 5일 주차는 약 $150–200",note_en:"5 days of LAX parking is about $150–200"}),
     it({id:"c_tx1",cat:"move",lbl:"택시 YQB 공항 → 구시가지",lbl_en:"Taxi, YQB airport → Old Quebec",u:45,cur:"CAD",q:1}),
     it({id:"c_car",cat:"move",kind:"car",c:"qc",q:1,tag:"ok"}),
     it({id:"c_gas",cat:"move",lbl:"주유 (약 120km)",lbl_en:"Gas (about 120 km)",u:20,cur:"CAD",q:1}),
@@ -1334,7 +1342,7 @@ function freshState(){ return {
 const DEF = Object.fromEntries(freshState().items.map(i=>[i.id,i]));
 let S = freshState();
 let BASE = JSON.parse(JSON.stringify(S));
-try{ const saved = JSON.parse(localStorage.getItem("jq_cost")||"null"); if(saved && saved.items){
+try{ const saved = JSON.parse(localStorage.getItem("jq_cost2")||"null"); if(saved && saved.items){
   const fresh = freshState();
   fresh.items.forEach((f,idx)=>{ if(!saved.items.some(i=>i.id===f.id)) saved.items.splice(Math.min(idx,saved.items.length),0,f); });
   saved.items = saved.items.filter(i=>fresh.items.some(f=>f.id===i.id));
@@ -1345,7 +1353,7 @@ function unit(i, st){
   if(i.kind==="hotel"){ const h=HOTELS[i.h]; const [p]=h.t[i.tier||st.style]; return p*(1+h.tax)*h.n; }
   if(i.kind==="car"){ return CARS[i.c].t[i.tier||st.style][0]; }
   if(i.kind==="meal"){ return MEALS[i.tier||st.style]*i.days; }
-  return i.u;
+  return (DEF[i.id]||i).u;   // unit prices always come from the current definitions
 }
 function cur(i){ return i.cur==="CAD" ? "CAD" : "USD"; }
 function usdOf(i, st){ const u=unit(i,st); return cur(i)==="CAD" ? u*i.q*st.fx : u*i.q; }
@@ -1400,7 +1408,7 @@ function renderC(){
    <section class="sec panel">
     <div class="ctrls">
      <label>${L("여행 스타일 (숙소·차·식비 일괄)","Trip style (hotels, car, food at once)")}<span class="seg" role="group">${["eco","std","lux"].map(k=>`<button type="button" data-style="${k}" aria-pressed="${S.style===k}">${L(TIER[k][0]+"형",TIER[k][1])}</button>`).join("")}</span></label>
-     <label for="flight" class="flight">${L("항공권 (SNA → 퀘벡 / 몬트리올 → SNA, 1인 왕복)","Flights (SNA → Quebec / Montreal → SNA, per person)")}<select id="flight">${Object.entries(FLIGHTS).map(([k,v])=>`<option value="${k}" ${k===S.flight?"selected":""}>${flabel(v)} · ${U(v.out+v.back)}</option>`).join("")}</select></label>
+     <label for="flight" class="flight">${L("항공권 (LAX → 퀘벡 / 몬트리올 → LAX, 1인 왕복)","Flights (LAX → Quebec / Montreal → LAX, per person)")}<select id="flight">${Object.entries(FLIGHTS).map(([k,v])=>`<option value="${k}" ${k===S.flight?"selected":""}>${L(v.short,v.short_en)} · ${U(v.out+v.back)}</option>`).join("")}</select><small class="fl-desc">${flabel(FLIGHTS[S.flight])}</small></label>
      <label for="fx">${L("환율 (1 CAD = ? USD)","Exchange rate (1 CAD = ? USD)")}<input type="number" id="fx" min="0.5" max="1" step="0.01" value="${S.fx}"></label>
      <label for="reserve">${L("예비비 (%)","Contingency (%)")}<input type="number" id="reserve" min="0" max="30" step="1" value="${S.reserve}"></label>
      <button class="btn" type="button" id="reset">${L("표준안으로 되돌리기","Reset to standard plan")}</button>
@@ -1427,8 +1435,8 @@ function updateC(){
   const bar = (n,Tt,w)=>`<div class="barrow"><b>${n}</b><div class="stack" aria-hidden="true" style="width:${w}%">${Object.keys(CATS).map(c=>`<span title="${catName(c)} ${U(Tt.by[c])}" style="width:${Tt.by[c]/Tt.total*100}%;background:${CATS[c][2]}"></span>`).join("")}</div><span class="num">${U(Tt.total)}</span></div>`;
   const mx = Math.max(T.total,B.total);
   document.getElementById("bars").innerHTML = bar(L("지금 선택","Current"),T,Math.max(8,T.total/mx*100))+bar(L("표준안","Standard"),B,Math.max(8,B.total/mx*100))
-    + `<p class="fine" style="margin:0">${L(`가장 큰 비용: ${topCat(T)} · 항공권이 비싼 이유는 추수감사절 연휴 마지막 일요일 귀국편 때문이에요. 델타 12:44편으로 바꾸면 4명 기준 ${U((934-497)*4)} 줄어듭니다.`,`Biggest cost: ${topCat(T)} · Airfare is high because we fly home on the Sunday after Thanksgiving. Switching to the Delta 12:44 p.m. flight saves ${U((934-497)*4)} for 4.`)}</p>`;
-  try{ localStorage.setItem("jq_cost", JSON.stringify(S)); }catch(e){}
+    + `<p class="fine" style="margin:0">${L(`가장 큰 비용: ${topCat(T)} · 항공권이 비싼 이유는 추수감사절 연휴 마지막 일요일 귀국편 때문이에요. 오는 편을 에어캐나다 11:10편으로 바꾸면 4명 기준 ${U((926-804)*4)} 줄어듭니다.`,`Biggest cost: ${topCat(T)} · Airfare is high because we fly home on the Sunday after Thanksgiving. Switching the return to the Air Canada 11:10 a.m. flight saves ${U((926-804)*4)} for 4.`)}</p>`;
+  try{ localStorage.setItem("jq_cost2", JSON.stringify(S)); }catch(e){}
 }
 function topCat(T){ const [c,v] = Object.entries(T.by).sort((a,b)=>b[1]-a[1])[0]; return `${catName(c)} ${Math.round(v/T.total*100)}%`; }
 function bindC(el){
@@ -1450,8 +1458,8 @@ function bindC(el){
 const CHECK = [
  ["여권 4개 유효기간 확인","캐나다 체류 기간 동안 유효해야 함 · 아이들 여권 포함","Check all 4 passports","Must be valid for the whole stay in Canada · including the kids'"],
  ["eTA 필요 여부 확인 (한국 여권 + 미국 비자 신분이면 필요)","CAD $7 · 공식 사이트 canada.ca에서만 · 미국 영주권자·시민권자는 불필요","Check whether you need an eTA (needed on a Korean passport with U.S. visa status)","CAD $7 · only at canada.ca · not needed for U.S. green-card holders or citizens"],
- ["미국 재입국 서류 챙기기","영주권 카드 또는 비자·I-20 등 · 몬트리올 공항 미국 사전입국심사에서 확인","Bring U.S. re-entry documents","Green card, or visa / I-20 etc. · checked at U.S. preclearance in Montreal"],
- ["항공권 발권 (가족 좌석 함께)","가는 편 아메리칸 19:39 메인 캐빈, 오는 편 에어캐나다·유나이티드 13:10","Book flights (seats together)","Out: American 7:39 p.m. Main Cabin; back: Air Canada/United 1:10 p.m."],
+ ["미국 재입국 서류 챙기기","영주권 카드 또는 비자·I-20 등 · 토론토 공항 미국 사전입국심사에서 확인","Bring U.S. re-entry documents","Green card, or visa / I-20 etc. · checked at U.S. preclearance in Toronto"],
+ ["항공권 발권 (가족 좌석 함께 지정)","가는 편 에어캐나다 22:55 LAX → 토론토 → 퀘벡, 오는 편 에어캐나다 13:10 몬트리올 → 토론토 → LAX","Book flights (choose seats together)","Out: Air Canada 10:55 p.m. LAX → Toronto → Quebec; back: Air Canada 1:10 p.m. Montreal → Toronto → LAX"],
  ["퀘벡 구시가지 호텔 2박 · 구 몬트리올 1박 예약","무료 취소 요금으로 먼저 잡기 · 4인 1실(퀸 2)","Book 2 nights in Old Quebec · 1 night in Old Montreal","Grab free-cancellation rates first · 4 in one room (2 queens)"],
  ["VIA 레일 37번 열차 4장 (11/28 12:32 팔레역)","어른 2 · 13–17세 1 · 12세 이하 1, 이코노미 CAD $54부터","4 tickets on VIA Rail #37 (11/28, 12:32 from Gare du Palais)","2 adults · 1 youth 13–17 · 1 child 12 and under; economy from CAD $54"],
  ["AURA 표 예매 (11/28 18:00 전후)","몇 주 전에 매진되는 편 · 가족권 CAD $104","Book AURA (around 6 p.m. on 11/28)","Often sells out weeks ahead · family ticket CAD $104"],
@@ -1497,27 +1505,124 @@ function renderE(){
 const EN = {hide:false, slow:true};
 try{ Object.assign(EN, JSON.parse(localStorage.getItem("jq_en")||"{}")); }catch(e){}
 const enDone = () => { try{ return JSON.parse(localStorage.getItem("jq_en_done")||"{}"); }catch(e){ return {}; } };
-const canSpeak = "speechSynthesis" in window;
+/* Voices: natural Québécois recordings (Microsoft neural fr-CA Sylvie / Antoine, en-US Jenny / Andrew),
+   pre-rendered to audio/*.mp3 at normal and slow speed. The browser's own voice is only a fallback. */
+const AUDIO = {
+"fr|T|Bonjour, hi! Passeports, s'il vous plaît.": "41fe13f33bde",
+"fr|M|Bonjour! Voici nos passeports.": "aac12f47db71",
+"fr|T|Quel est le but de votre visite?": "c4c286a44181",
+"fr|M|Le tourisme. Nous sommes en vacances en famille.": "5dea5e77ebc9",
+"fr|T|Combien de temps restez-vous au Canada?": "92607583d183",
+"fr|M|Trois nuits. Deux à Québec et une à Montréal.": "bf0b8bdcc183",
+"fr|T|Avez-vous de la nourriture, des armes ou plus de dix mille dollars?": "9b7ec7064dba",
+"fr|M|Non, juste des collations.": "c96cc485f26f",
+"fr|T|Parfait. Bon séjour!": "8827b73dcb9a",
+"fr|M|Merci beaucoup!": "0c2ed49a242c",
+"fr|T|Bonjour! Bienvenue. Vous avez une réservation?": "f14aac89be33",
+"fr|M|Bonjour! Oui, au nom de Kim.": "04075a5f7020",
+"fr|T|La chambre sera prête à quinze heures.": "422d5392353c",
+"fr|M|Est-ce qu'on peut laisser nos valises ici?": "a379e0c7a904",
+"fr|T|Bien sûr. Voici votre billet.": "a214fbf9275d",
+"fr|M|À quelle heure est le petit-déjeuner?": "f626c2942faa",
+"fr|T|De sept heures à dix heures, au rez-de-chaussée.": "e4c512284e5d",
+"fr|M|Merci! Et le départ, c'est à quelle heure?": "28266f16b490",
+"fr|T|Onze heures. Bon séjour!": "656e853622c5",
+"fr|T|Bonsoir! Je vous apporte de l'eau?": "25560e5b08df",
+"fr|M|Oui, de l'eau pour quatre, s'il vous plaît.": "aa13efc1d878",
+"fr|T|Vous êtes prêts à commander?": "407cff79b9cf",
+"fr|M|Une tourtière et un pâté chinois, s'il vous plaît.": "868892a329d5",
+"fr|M|Et deux menus pour enfants.": "67c8968a1d0c",
+"fr|T|Très bien. Et pour le dessert?": "2af799c0d823",
+"fr|M|La tarte au sucre, c'est sucré?": "af5dd5887870",
+"fr|T|Oui, très! C'est notre spécialité.": "dea14741528c",
+"fr|M|L'addition, s'il vous plaît.": "1a6ce4241ba9",
+"fr|T|Bonsoir! Qu'est-ce que je vous sers?": "da187ef16358",
+"fr|M|Deux chocolats chauds, s'il vous plaît.": "b5d191fccc6e",
+"fr|M|Et un bretzel, celui-là.": "8646ab45c386",
+"fr|T|Avec de la crème fouettée?": "a298fdc713b9",
+"fr|M|Oui, merci!": "5a28cdaa77cb",
+"fr|T|Ça fait quatorze dollars.": "0a65ae802c13",
+"fr|M|Je peux payer par carte?": "4d6dc70e2fd4",
+"fr|T|Oui, bien sûr. Joyeux Noël!": "adb5aeb0b41f",
+"fr|M|Joyeux Noël!": "0d0776259e4b",
+"fr|T|Bienvenue à la Citadelle! La visite est en français ou en anglais?": "478e4f735a05",
+"fr|M|En anglais, s'il vous plaît. Mais on apprend le français!": "2c071a3d4e03",
+"fr|T|Bravo! Vous avez des questions?": "456cec145e35",
+"fr|M|Excusez-moi, c'est quoi, ça?": "7f79750b7853",
+"fr|T|C'est un canon de mille huit cents.": "28585b1a3c8b",
+"fr|M|Les soldats habitent ici?": "f6dfb6e38e7d",
+"fr|T|Oui! C'est encore une base militaire.": "ea1e5b7653fc",
+"fr|M|C'est super! Merci!": "c4cd2a036e63",
+"fr|M|Bonjour! Le train pour Montréal, c'est quel quai?": "50ea62fc5bf1",
+"fr|T|Quai numéro deux. L'embarquement commence à midi et quart.": "0ebad6691583",
+"fr|M|Merci! On peut garder nos valises avec nous?": "58b5e9240daf",
+"fr|T|Oui, au-dessus des sièges ou à l'avant du wagon.": "e885acce3fa7",
+"fr|T|Billets, s'il vous plaît.": "90febd6eb882",
+"fr|M|Voici. Quatre billets pour Montréal.": "9b9064d2a056",
+"fr|T|Merci. On arrive à quinze heures cinquante-quatre.": "f3d98b8a5405",
+"fr|M|Un chocolat chaud et deux jus de pomme, s'il vous plaît.": "e985597e685b",
+"fr|T|Bonjour! Qu'est-ce qu'on vous donne?": "c28a8866efec",
+"fr|M|Six bagels au sésame, s'il vous plaît.": "4f2f31550ab9",
+"fr|M|Et six au pavot.": "051fd5fb6316",
+"fr|T|Une douzaine. Autre chose? Du fromage à la crème?": "10581bf928fd",
+"fr|M|Oui, un petit pot, s'il vous plaît.": "5e7def7f114a",
+"fr|T|Ils sortent du four. Attention, c'est chaud!": "8af03d6561e9",
+"fr|M|Merci! Bonne journée!": "35d93a9a89be",
+"en|T|Good morning. Where are you heading today?": "79e449118267",
+"en|M|Good morning. We're going home to Irvine, California.": "e030226f2674",
+"en|T|What was the purpose of your trip to Canada?": "05af445541a3",
+"en|M|A family vacation for Thanksgiving. Four days.": "cfbcd86de897",
+"en|T|Are you bringing back any food or goods?": "7d4063e150c0",
+"en|M|Some maple syrup, chocolate, and bagels. No meat.": "e8f67ec0b04b",
+"en|T|Okay. Welcome back.": "3ee75e790c2b",
+"en|M|Thank you!": "1cf42648dcdd",
+"fr|T|Bonjour!": "82bd4b57c495",
+"fr|T|Bonsoir!": "f666eb063212",
+"fr|T|Merci beaucoup!": "9e82598a84ca",
+"fr|T|S'il vous plaît.": "e7059864f52b",
+"fr|T|Je m'appelle Jia.": "c2d3f78721d6",
+"fr|T|Je viens de Californie.": "e6859a291e32",
+"fr|T|Bonne journée!": "b2ded270fe95",
+"fr|T|Bonjour! Merci, bonne journée!": "f3545f80662e",
+"fr|T|Une poutine moyenne, s'il vous plaît.": "bcbc02553fc5",
+"fr|T|Excusez-moi, c'est quoi, ça?": "1c063909a052",
+"fr|T|Un chocolat chaud, s'il vous plaît.": "66cf2d02fda9",
+"fr|T|Six bagels au sésame, s'il vous plaît!": "21232c45348c",
+"fr|T|Ils apprennent le français. Merci de votre patience!": "797882c27e81"
+};
+const hasTTS = "speechSynthesis" in window;
+const canSpeak = true;
+let curAudio = null;
+function stopSpeech(){ if(curAudio){ curAudio.onended=curAudio.onerror=null; curAudio.pause(); curAudio=null; } if(hasTTS) speechSynthesis.cancel(); }
 function voicesFor(lang){
-  const all = canSpeak ? speechSynthesis.getVoices() : [];
+  const all = hasTTS ? speechSynthesis.getVoices() : [];
   if(lang==="en"){
     const v = all.filter(x=>/^en[-_]US/i.test(x.lang)), pick = re => v.find(x=>re.test(x.name));
     const a = pick(/Samantha|Google US English|Jenny|Aria/) || v[0], b = pick(/Alex|Daniel|Guy|Fred|Tom/) || v.find(x=>x!==a) || a;
     return {T:a, M:b, lang:"en-US"};
   }
-  // Québec voices first (Amélie, Nicolas, Sylvie...), then any French voice
   const ca = all.filter(x=>/^fr[-_]CA/i.test(x.lang)), fr = all.filter(x=>/^fr/i.test(x.lang));
   const v = ca.length ? ca : fr;
   const a = v.find(x=>/Amélie|Amelie|Sylvie|Chantal|Google français/i.test(x.name)) || v[0];
   const b = v.find(x=>x!==a && /Nicolas|Thomas|Antoine|Jean/i.test(x.name)) || v.find(x=>x!==a) || a;
   return {T:a, M:b, lang: ca.length ? "fr-CA" : "fr-FR"};
 }
-function speak(text, role, onend, lang){
-  if(!canSpeak){ onend&&onend(); return; }
+function ttsSpeak(text, role, onend, lang){
+  if(!hasTTS){ onend&&onend(); return; }
   const u = new SpeechSynthesisUtterance(text), vs = voicesFor(lang);
   u.lang = vs.lang; if(vs[role]) u.voice = vs[role]; u.rate = EN.slow ? 0.78 : 0.95;
   u.onend = u.onerror = () => onend&&onend();
   speechSynthesis.speak(u);
+}
+function speak(text, role, onend, lang="fr"){
+  const id = AUDIO[`${lang}|${role}|${text}`] || AUDIO[`${lang}|T|${text}`] || AUDIO[`${lang}|M|${text}`];
+  if(!id){ ttsSpeak(text, role, onend, lang); return; }
+  if(curAudio){ curAudio.onended=curAudio.onerror=null; curAudio.pause(); }
+  const a = new Audio(`audio/${id}${EN.slow?"_s":""}.mp3`); curAudio = a;
+  let done=false; const fin=()=>{ if(done) return; done=true; if(curAudio===a) curAudio=null; onend&&onend(); };
+  a.onended = fin;
+  a.onerror = ()=>{ if(done) return; done=true; ttsSpeak(text, role, onend, lang); };
+  a.play().catch(()=>{ if(!done){ done=true; ttsSpeak(text, role, onend, lang); } });
 }
 function renderF(){
   const done = enDone(), n = SCENES.filter(s=>done[s.id]).length;
@@ -1529,7 +1634,7 @@ function renderF(){
    <div class="en-tools" style="margin-bottom:12px">
      <button type="button" data-en="hide" aria-pressed="${EN.hide}">${L("내 대사 가리기","Hide my lines")}</button>
      <button type="button" data-en="slow" aria-pressed="${EN.slow}">${L("천천히 듣기","Slow audio")}</button>
-     ${canSpeak?"":`<span class="fine">${L("이 브라우저는 소리 듣기를 지원하지 않아요. 휴대폰 사파리나 크롬에서 열어 주세요.","This browser can't play speech. Open the page in Safari or Chrome on your phone.")}</span>`}
+     <span class="fine">${L("목소리: 퀘벡 프랑스어 AI 음성(상대 Sylvie · 나 Antoine), 미국 심사 장면은 미국 영어","Voices: Québécois French AI voices (them: Sylvie · me: Antoine); U.S. English for the customs scene")}</span>
    </div>
    <div class="scenes ${EN.hide?"hide-me":""}">${SCENES.map((s,si)=>{ const t=s[LANG]; return `<details class="scene ${done[s.id]?"done":""}" data-scene="${s.id}" ${si===0?"open":""}>
      <summary><h3>${si+1}. ${t.t}</h3><small>${t.where} · ${L("상대","with")}: ${t.them}</small><span class="st">${done[s.id]?L("연습 완료","Practiced"):L("연습 전","Not yet")}</span></summary>
@@ -1551,12 +1656,12 @@ function bindF(el){
   }));
   el.querySelectorAll(".line.M .bubble").forEach(b=>b.addEventListener("click",()=>b.parentElement.classList.toggle("peek")));
   el.querySelectorAll("[data-say]").forEach(b=>b.addEventListener("click",e=>{
-    e.stopPropagation(); enRun++; speechSynthesis.cancel();
+    e.stopPropagation(); enRun++; stopSpeech();
     const [id,li]=b.dataset.say.split(":"); const s=SCENES.find(x=>x.id===id), line=s.lines[+li];
     const row=b.closest(".line"); row.classList.add("playing"); speak(line[1], line[0], ()=>row.classList.remove("playing"), s.lang);
   }));
   el.querySelectorAll("[data-play]").forEach(b=>b.addEventListener("click",()=>{
-    const run=++enRun; speechSynthesis.cancel();
+    const run=++enRun; stopSpeech();
     const s=SCENES.find(x=>x.id===b.dataset.play), turn=!!b.dataset.turn, box=b.closest(".scene-body");
     const rows=[...box.querySelectorAll(".line")];
     const step=i=>{
@@ -1574,7 +1679,7 @@ function bindF(el){
     const sc=c.closest(".scene"); sc.classList.toggle("done",c.checked); sc.querySelector(".st").textContent=c.checked?L("연습 완료","Practiced"):L("연습 전","Not yet");
     const n=SCENES.filter(s=>d[s.id]).length; el.querySelector(".sec-h p").textContent=L(`${n} / ${SCENES.length} 장면 연습 완료`,`${n} / ${SCENES.length} scenes practiced`);
   }));
-  if(canSpeak) speechSynthesis.getVoices();
+  if(hasTTS) speechSynthesis.getVoices();
 }
 
 /* ---------- intro film: kids tab gets its own film, English mode its own versions ---------- */
@@ -1596,11 +1701,11 @@ function curView(){ const t=document.querySelector('.tab[aria-selected="true"]')
 function show(v){
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected", String(b.dataset.view===v)));
   const el = document.getElementById("view");
-  if(window.speechSynthesis) speechSynthesis.cancel(); enRun++;
+  stopSpeech(); enRun++;
   setFilm(v==="B" ? "kids" : "adult");
   el.innerHTML = v==="A"?renderA():v==="B"?renderB():v==="C"?renderC():v==="E"?renderE():v==="F"?renderF():renderD();
   el.querySelectorAll("tr[data-go]").forEach(tr=>tr.addEventListener("click",()=>document.getElementById(tr.dataset.go)?.scrollIntoView({behavior:"smooth"})));
-  el.querySelectorAll("[data-speak]").forEach(b=>b.addEventListener("click",e=>{ e.preventDefault(); e.stopPropagation(); enRun++; speechSynthesis.cancel(); speak(b.dataset.speak,"T",null,b.dataset.sl); }));
+  el.querySelectorAll("[data-speak]").forEach(b=>b.addEventListener("click",e=>{ e.preventDefault(); e.stopPropagation(); enRun++; stopSpeech(); speak(b.dataset.speak,"T",null,b.dataset.sl); }));
   if(v==="A"||v==="B"){
     el.querySelectorAll("[data-choice]").forEach(b=>b.addEventListener("click",()=>{
       const c = DAYS.find(x=>x.choice&&x.choice.id===b.dataset.choice).choice;
