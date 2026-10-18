@@ -1,0 +1,206 @@
+{
+ "frontenac_winter": {
+  "title": "File:Château Frontenac et le fleuve en hiver.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ch%C3%A2teau_Frontenac_et_le_fleuve_en_hiver.jpg",
+  "artist": "MikeDicaire",
+  "license": "CC BY-SA 4.0"
+ },
+ "frontenac": {
+  "title": "File:Chateau Frontenac 2012.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Chateau_Frontenac_2012.JPG",
+  "artist": "Letartean",
+  "license": "CC BY 3.0"
+ },
+ "frontenac_ice": {
+  "title": "File:Château Frontenac after a freezing rain day in Quebec city.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ch%C3%A2teau_Frontenac_after_a_freezing_rain_day_in_Quebec_city.jpg",
+  "artist": "Wilfredor",
+  "license": "CC BY-SA 4.0"
+ },
+ "dufferin": {
+  "title": "File:Victoria Kiosk at sunset on Dufferin Terrace 2.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Victoria_Kiosk_at_sunset_on_Dufferin_Terrace_2.jpg",
+  "artist": "Wilfredor",
+  "license": "CC0"
+ },
+ "champlain": {
+  "title": "File:Petit Champlain at night, Quebec city.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Petit_Champlain_at_night,_Quebec_city.jpg",
+  "artist": "Wilfredor",
+  "license": "CC0"
+ },
+ "champlain_winter": {
+  "title": "File:Rue du Petit Champlain en hiver - panoramio.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Rue_du_Petit_Champlain_en_hiver_-_panoramio.jpg",
+  "artist": "Daniel Hu",
+  "license": "CC BY 3.0"
+ },
+ "place_royale": {
+  "title": "File:Place Royale and Notre-Dame-des-Victoires at night.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Place_Royale_and_Notre-Dame-des-Victoires_at_night.jpg",
+  "artist": "Wilfredor",
+  "license": "CC0"
+ },
+ "fresque": {
+  "title": "File:Fresque Des Quebecois (2934484763).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Fresque_Des_Quebecois_(2934484763).jpg",
+  "artist": "Reading Tom from Reading, UK",
+  "license": "CC BY 2.0"
+ },
+ "citadelle": {
+  "title": "File:Quebec Citadel wall.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Quebec_Citadel_wall.jpg",
+  "artist": "The Cosmonaut",
+  "license": "CC BY-SA 2.5 ca"
+ },
+ "montmorency": {
+  "title": "File:Parc de la Chute-Montmorency 001.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Parc_de_la_Chute-Montmorency_001.jpg",
+  "artist": "Wilfredor",
+  "license": "CC0"
+ },
+ "orleans": {
+  "title": "File:Île d'Orléans 009.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%C3%8Ele_d%27Orl%C3%A9ans_009.jpg",
+  "artist": "Wilfredor",
+  "license": "CC0"
+ },
+ "ste_anne": {
+  "title": "File:Intérieur de la Basilique Sainte-Anne-de-Beaupré, Quebéc, Canada.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Int%C3%A9rieur_de_la_Basilique_Sainte-Anne-de-Beaupr%C3%A9,_Queb%C3%A9c,_Canada.jpg",
+  "artist": "Wilfredor",
+  "license": "CC0"
+ },
+ "plaines": {
+  "title": "File:Les plaines d'Abraham 3.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Les_plaines_d%27Abraham_3.JPG",
+  "artist": "NickHam",
+  "license": "CC BY-SA 3.0"
+ },
+ "plaines_hist": {
+  "title": "File:Plaines d'Abraham, près de Québec.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Plaines_d%27Abraham,_pr%C3%A8s_de_Qu%C3%A9bec.jpg",
+  "artist": "William Henry Bartlett et R. Wallis.",
+  "license": "Public domain"
+ },
+ "parlement": {
+  "title": "File:Parliament building of Quebec Canada.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Parliament_building_of_Quebec_Canada.jpg",
+  "artist": "Marc-Lautenbacher",
+  "license": "CC BY-SA 4.0"
+ },
+ "funiculaire": {
+  "title": "File:Funiculaire du Vieux-Quebec 03.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Funiculaire_du_Vieux-Quebec_03.jpg",
+  "artist": "Jeangagnon",
+  "license": "CC BY-SA 3.0"
+ },
+ "gare_palais": {
+  "title": "File:Main hall of Gare du Palais in Quebec City.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Main_hall_of_Gare_du_Palais_in_Quebec_City.jpg",
+  "artist": "Wilfredor",
+  "license": "CC0"
+ },
+ "marche_noel": {
+  "title": "File:Marche de Noel allemand de Quebec - 01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Marche_de_Noel_allemand_de_Quebec_-_01.jpg",
+  "artist": "Jeangagnon",
+  "license": "CC BY-SA 4.0"
+ },
+ "marche_noel2": {
+  "title": "File:Marche de Noel allemand de Quebec - 03.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Marche_de_Noel_allemand_de_Quebec_-_03.jpg",
+  "artist": "Jeangagnon",
+  "license": "CC BY-SA 4.0"
+ },
+ "quebec_winter": {
+  "title": "File:Québec en hiver (5587681700).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Qu%C3%A9bec_en_hiver_(5587681700).jpg",
+  "artist": "abdallahh from Montréal, Canada",
+  "license": "CC BY 2.0"
+ },
+ "tresor": {
+  "title": "File:Rue du Trésor, Québec, QC, Canada.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Rue_du_Tr%C3%A9sor,_Qu%C3%A9bec,_QC,_Canada.jpg",
+  "artist": "SaphirQC - Odette Tremblay",
+  "license": "CC BY-SA 3.0"
+ },
+ "notre_dame": {
+  "title": "File:Notre-Dame Basilica Interior, Montreal, Canada - Diliff.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Notre-Dame_Basilica_Interior,_Montreal,_Canada_-_Diliff.jpg",
+  "artist": "Diliff",
+  "license": "CC BY-SA 3.0"
+ },
+ "notre_dame_ext": {
+  "title": "File:Façade de la Basilique Notre-Dame de Montréal.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Fa%C3%A7ade_de_la_Basilique_Notre-Dame_de_Montr%C3%A9al.jpg",
+  "artist": "Louis Bouret",
+  "license": "CC BY-SA 4.0"
+ },
+ "old_mtl": {
+  "title": "File:Rue Saint-Paul, Vieux-Montréal, Montreal, Quebec (29954630842).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Rue_Saint-Paul,_Vieux-Montr%C3%A9al,_Montreal,_Quebec_(29954630842).jpg",
+  "artist": "Ken Lund from Reno, Nevada, USA",
+  "license": "CC BY-SA 2.0"
+ },
+ "old_port": {
+  "title": "File:Vieux-Port de Montreal 72.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Vieux-Port_de_Montreal_72.jpg",
+  "artist": "Jeangagnon",
+  "license": "CC BY-SA 4.0"
+ },
+ "mont_royal": {
+  "title": "File:Kondiaronk Belvedere, Montreal city, Canada.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kondiaronk_Belvedere,_Montreal_city,_Canada.jpg",
+  "artist": "Wilfredor",
+  "license": "CC0"
+ },
+ "poutine": {
+  "title": "File:Poutine classique.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Poutine_classique.jpg",
+  "artist": "IsabelleDuf",
+  "license": "CC BY-SA 4.0"
+ },
+ "smoked_meat": {
+  "title": "File:Smoked Meat Sandwich @ Schwartz's Deli @ Le Plateau @ Montréal (30506717566).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Smoked_Meat_Sandwich_@_Schwartz%27s_Deli_@_Le_Plateau_@_Montr%C3%A9al_(30506717566).jpg",
+  "artist": "Guilhem Vellut from Annecy, France",
+  "license": "CC BY 2.0"
+ },
+ "via": {
+  "title": "File:VIA Rail Canada - 2330 - Train 35 (Corridor).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:VIA_Rail_Canada_-_2330_-_Train_35_(Corridor).jpg",
+  "artist": "wltmauc",
+  "license": "CC BY-SA 4.0"
+ },
+ "maple_taffy": {
+  "title": "File:Children eating maple syrup on snow.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Children_eating_maple_syrup_on_snow.jpg",
+  "artist": "Chris Lund",
+  "license": "Public domain"
+ },
+ "bagel": {
+  "title": "File:Montreal Bagel by Fairmount Bagels.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Montreal_Bagel_by_Fairmount_Bagels.jpg",
+  "artist": "Gogerr",
+  "license": "CC BY-SA 4.0"
+ },
+ "jean_talon": {
+  "title": "File:Marché Jean-Talon 4.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:March%C3%A9_Jean-Talon_4.jpg",
+  "artist": "Great11",
+  "license": "CC BY-SA 4.0"
+ },
+ "oratoire": {
+  "title": "File:Oratoire Saint-Joseph du Mont-Royal 3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Oratoire_Saint-Joseph_du_Mont-Royal_3.jpg",
+  "artist": "Acarpentier",
+  "license": "CC BY 3.0"
+ },
+ "porte_stlouis": {
+  "title": "File:Porte Saint-Louis, Quebec - 2017-04-12.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Porte_Saint-Louis,_Quebec_-_2017-04-12.jpg",
+  "artist": "DXR",
+  "license": "CC BY-SA 4.0"
+ }
+}
